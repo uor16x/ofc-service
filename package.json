@@ -1,0 +1,30 @@
+{
+  "name": "ofc-service",
+  "version": "1.0.0",
+  "description": "Open face chinese poker backend with card recognition from picture",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uor16x/ofc-service.git"
+  },
+  "keywords": [
+    "poker"
+  ],
+  "author": "uor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uor16x/ofc-service/issues"
+  },
+  "homepage": "https://github.com/uor16x/ofc-service#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "fastify": "^3.29.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
