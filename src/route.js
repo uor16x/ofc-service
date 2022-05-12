@@ -1,9 +1,11 @@
-const { StatusCodes  } = require('http-status-codes')
+const { calc } = require('./controller')
+const { auth } = require('./middlewares')
+const { StatusCodes } = require('http-status-codes')
 
 module.exports = fastify => {
   fastify.route({
     method: 'POST',
-    url: '/',
+    url: '/calc',
     schema: {
       body: {
         type: 'array',
@@ -45,11 +47,7 @@ module.exports = fastify => {
         }
       }
     },
-    preHandler: async (_request, _reply) => {
-      return null
-    },
-    handler: async (_request, _reply) => {
-      return { hello: 'world' }
-    }
+    preHandler: auth,
+    handler: calc
   })
 }
