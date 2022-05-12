@@ -1,10 +1,12 @@
 const { v4: uuidv4 } = require('uuid')
 
-module.exports = (errHandler, app) => {
+module.exports = () => {
+  const app = require('./app')()
+
   app.register(require('fastify-socket.io'))
   app.ready(err => {
     if (err) {
-      return errHandler(err)
+      return app.fatalErr(err)
     }
 
     app.io.on('connect', socket => {

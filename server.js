@@ -2,32 +2,20 @@ require('dotenv').config()
 const route = require('./src/route')
 const socket = require('./src/socket')
 
+const app = require('./src/app')()
+
 process
-  .on('unhandledRejection', processErr)
-  .on('uncaughtException', processErr)
+  .on('unhandledRejection', app.fatalErr)
+  .on('uncaughtException', app.fatalErr)
 
-const app = require('fastify')({ 
-  logger: {
-    prettyPrint: {
-      translateTime: 'SYS:dd.mm HH:MM:ss',
-      ignore: 'pid,hostname'
-    }
-  } 
-})
-route(app)
-socket(processErr, app)
-
+route()
+socket()
 start()
-
-function processErr(err) {
-  app.log.error(err)
-  process.exit(1)
-}
 
 async function start() {
   try {
     await app.listen(process.env.PORT)
   } catch (err) {
-    processErr(err)
+    app.fatalErr(err)
   }
 }
