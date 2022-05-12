@@ -2,8 +2,8 @@ const { calc } = require('./controller')
 const { auth } = require('./middlewares')
 const { StatusCodes } = require('http-status-codes')
 
-module.exports = fastify => {
-  fastify.route({
+module.exports = app => {
+  app.route({
     method: 'POST',
     url: '/calc',
     schema: {
