@@ -2,7 +2,9 @@ const { calc } = require('./controller')
 const { auth } = require('./middlewares')
 const { StatusCodes } = require('http-status-codes')
 
-module.exports = app => {
+module.exports = () => {
+  const app = require('./app')()
+  
   app.route({
     method: 'POST',
     url: '/calc',
