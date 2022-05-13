@@ -33,6 +33,7 @@
                 "caughtErrorsIgnorePattern": "^_"
             }
         ],
-        "no-multiple-empty-lines": "warn"
+        "no-multiple-empty-lines": "warn",
+        "object-curly-spacing": ["error", "always"]
     }
 }
