@@ -15,7 +15,7 @@ start()
 
 async function start() {
   try {
-    db()
+    await db()
     await app.listen(process.env.PORT)
   } catch (err) {
     app.fatalErr(err)
