@@ -1,6 +1,7 @@
 require('dotenv').config()
 const route = require('./src/route')
 const socket = require('./src/socket')
+const db = require('./src/db')
 
 const app = require('./src/app')()
 
@@ -14,6 +15,7 @@ start()
 
 async function start() {
   try {
+    db()
     await app.listen(process.env.PORT)
   } catch (err) {
     app.fatalErr(err)
