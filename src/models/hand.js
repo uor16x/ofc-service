@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema, ObjectId } = mongoose
 
-exports.handSchema = new Schema({
+const handSchema = new Schema({
   isDone: Boolean,
   isScoop: Boolean,
   nextIsFantasy: Boolean,
@@ -33,3 +33,5 @@ exports.handSchema = new Schema({
     }
   },
 })
+
+module.exports = mongoose.model('Hand', handSchema)

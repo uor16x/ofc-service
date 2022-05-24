@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema, ObjectId } = mongoose
 
-exports.gameSchema = new Schema({
+const gameSchema = new Schema({
   creationTime: Date,
   hostName: String,
   name: String,
@@ -14,3 +14,5 @@ exports.gameSchema = new Schema({
     stat: Number
   }]
 })
+
+module.exports = mongoose.model('Game', gameSchema)

@@ -8,12 +8,8 @@ module.exports = async () => {
     app.fatalErr(err)
   }
   app.db = {
-    // Mymodel,
-    // ...
+    Hand: require('./models/hand'),
+    Game: require('./models/game'),
   }
 }
-
-// models here:
-// const MyModel = mongoose.model('Test', new Schema({ name: String }))
-// ...
 

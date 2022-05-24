@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-exports.combinationSchema = new Schema({
+const combinationSchema = new Schema({
   weight: Number,
   name: String,
   caption: {
@@ -9,3 +9,5 @@ exports.combinationSchema = new Schema({
     ua: String
   }
 })
+
+module.exports = mongoose.model('Combination', combinationSchema)
