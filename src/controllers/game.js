@@ -2,52 +2,77 @@ const { StatusCodes } = require('http-status-codes')
 const appGetter = require('../app')
 
 module.exports = {
-  async createGame(request) {
+  async createGame(request, reply) {
     const body = request.body
     const app = appGetter()
-    return app.db.Game.create({
-      ...body,
-      creationTime: new Date(),
-      status: 'OPEN'
-    })
+    try {
+      return app.db.Game.create({
+        ...body,
+        creationTime: new Date(),
+        status: 'OPEN'
+      })
+    } catch (e) {
+      return reply
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(new Error('Failed to create game'))
+    }
   },
 
   async getGameById(request, reply) {
     const id = request.params.id
     const app = appGetter()
-    const game = await app.db.Game.findById(id)
-    if (!game) {
+    try {
+      const game = await app.db.Game.findById(id)
+      if (!game) {
+        return reply
+          .status(StatusCodes.BAD_REQUEST)
+          .send(new Error(`Game with id: ${id} not found`))
+      }
+      return game
+    } catch (e) {
       return reply
-        .status(StatusCodes.BAD_REQUEST)
-        .send(new Error(`Game with id: ${id} not found`))
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(new Error(`Failed to fetch game by id ${id}`))
     }
-    return game
   },
 
   async updateGameById(request, reply) {
     const id = request.params.id
     const body = request.body
     const app = appGetter()
-    const updatedGame =
-      await app.db.Game.findByIdAndUpdate(id, body, { new: true }).exec()
-    if (!updatedGame) {
+    try {
+      const updatedGame =
+        await app.db.Game.findByIdAndUpdate(id, body, { new: true }).exec()
+      if (!updatedGame) {
+        return reply
+          .status(StatusCodes.BAD_REQUEST)
+          .send(new Error(`Game with id: ${id} not found`))
+      }
+      return updatedGame
+    } catch (e) {
       return reply
-        .status(StatusCodes.BAD_REQUEST)
-        .send(new Error(`Game with id: ${id} not found`))
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(new Error(`Failed to update game by id ${id}`))
     }
-    return updatedGame
+
   },
 
   async deleteGameById(request, reply) {
     const id = request.params.id
     const app = appGetter()
-    const deleteResult =
-      await app.db.Game.findByIdAndDelete(id).exec()
-    if (!deleteResult) {
+    try {
+      const deleteResult =
+        await app.db.Game.findByIdAndDelete(id).exec()
+      if (!deleteResult) {
+        return reply
+          .status(StatusCodes.BAD_REQUEST)
+          .send(new Error(`Game with id: ${id} not found`))
+      }
+      return `Game ${id} was deleted successfully`
+    } catch (e) {
       return reply
-        .status(StatusCodes.BAD_REQUEST)
-        .send(new Error(`Game with id: ${id} not found`))
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send(new Error(`Failed to delete game by id ${id}`))
     }
-    return `Game ${id} was deleted successfully`
   },
 }
