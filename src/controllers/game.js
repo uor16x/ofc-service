@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes')
 const appGetter = require('../app')
+const errHandler = require('../helpers/err')
 
 module.exports = {
   async createGame(request, reply) {
@@ -11,10 +12,13 @@ module.exports = {
         creationTime: new Date(),
         status: 'OPEN'
       })
-    } catch (e) {
-      return reply
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(new Error('Failed to create game'))
+    } catch (err) {
+      errHandler(
+        reply,
+        err,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        `Failed to create game: ${err.message}`
+      )
     }
   },
 
@@ -29,10 +33,13 @@ module.exports = {
           .send(new Error(`Game with id: ${id} not found`))
       }
       return game
-    } catch (e) {
-      return reply
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(new Error(`Failed to fetch game by id ${id}`))
+    } catch (err) {
+      errHandler(
+        reply,
+        err,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        `Failed to fetch game by id ${id}: ${err.message}`
+      )
     }
   },
 
@@ -49,10 +56,13 @@ module.exports = {
           .send(new Error(`Game with id: ${id} not found`))
       }
       return updatedGame
-    } catch (e) {
-      return reply
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(new Error(`Failed to update game by id ${id}`))
+    } catch (err) {
+      errHandler(
+        reply,
+        err,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        `Failed to update game by id ${id}: ${err.message}`
+      )
     }
 
   },
@@ -69,10 +79,13 @@ module.exports = {
           .send(new Error(`Game with id: ${id} not found`))
       }
       return `Game ${id} was deleted successfully`
-    } catch (e) {
-      return reply
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(new Error(`Failed to delete game by id ${id}`))
+    } catch (err) {
+      errHandler(
+        reply,
+        err,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        `Failed to delete game by id ${id}: ${err.message}`
+      )
     }
   },
 }
