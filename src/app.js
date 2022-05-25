@@ -10,6 +10,8 @@ module.exports = () => {
       } 
     })
 
+    app.register(require('@fastify/cors'))
+
     app.fatalErr = err => {
       app.log.error(err)
       process.exit(1)
