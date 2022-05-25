@@ -12,7 +12,7 @@ const actionSchema = new Schema({
   ip: String,
   entryPoint: String,
   params: Object,
-  response: Object,
+  response: String,
   err: Object,
   timestamp: Date,
   done: {
