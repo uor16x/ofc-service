@@ -1,6 +1,6 @@
 const { auth } = require('../middlewares')
 const { StatusCodes } = require('http-status-codes')
-const { idValidator } = require('../helpers/id-validator')
+const idValidator = require('../helpers/id-validator')
 const { createGame, getGameById, updateGameById, deleteGameById } = require('../controllers/game')
 
 const gameResponseJsonSchema = {
