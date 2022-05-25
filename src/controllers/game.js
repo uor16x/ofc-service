@@ -64,7 +64,6 @@ module.exports = {
         `Failed to update game by id ${id}: ${err.message}`
       )
     }
-
   },
 
   async deleteGameById(request, reply) {
