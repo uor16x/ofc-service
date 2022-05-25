@@ -10,6 +10,7 @@ module.exports = async () => {
   app.db = {
     Hand: require('./models/hand'),
     Game: require('./models/game'),
+    Action: require('./models/action')
   }
 }
 
