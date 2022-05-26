@@ -9,6 +9,7 @@ const actionSchema = new Schema({
   },
   ip: String,
   entryPoint: String,
+  method: String,
   params: Object,
   response: String,
   err: Object,

@@ -13,6 +13,7 @@ module.exports = () => {
         type: 'object',
         required: ['limit', 'offset'],
         properties: {
+          method: { type: 'string' },
           entryPoint: { type: 'string' },
           limit: { type: 'number' },
           offset: { type: 'number' },
@@ -29,6 +30,7 @@ module.exports = () => {
                 _id: { type: 'string' },
                 ip: { type: 'string' },
                 entryPoint: { type: 'string' },
+                method: { type: 'string' },
                 params: { type: 'object' },
                 response: { type: 'string' },
                 err: { 

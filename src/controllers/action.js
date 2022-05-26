@@ -6,6 +6,7 @@ module.exports = {
   async getActions(request, reply) {
     const app = appGetter()
     const {
+      method,
       entryPoint,
       limit,
       offset,
@@ -16,6 +17,9 @@ module.exports = {
     }
     if (entryPoint) {
       searchParams.entryPoint = entryPoint
+    }
+    if (method) {
+      searchParams.method = method
     }
    
     try {

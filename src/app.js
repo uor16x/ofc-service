@@ -12,8 +12,8 @@ module.exports = () => {
       } 
     })
 
-    app.addHook('onError', onErrorHook)
     app.addHook('onRequest', onRequestHook)
+    app.addHook('onError', onErrorHook)
     app.addHook('preValidation', onPreValidationHook)
     app.addHook('onSend', onSendHook)
     app.addHook('onResponse', onResponseHook)
@@ -28,22 +28,23 @@ module.exports = () => {
   return app
 }
 
+async function onRequestHook(request) {
+  const action = new Action({
+    ip: request.ip,
+    entryPoint: request.routerPath,
+    method: request.method,
+    timestamp: Date.now()
+  })
+  request.action = action
+  await action.save()
+}
+
 async function onErrorHook(request, reply, err) {
   request.action.err = {
     message: err.message,
     stack: err.stack
   }
   await request.action.save()
-}
-
-async function onRequestHook(request) {
-  const action = new Action({
-    ip: request.ip,
-    entryPoint: request.routerPath,
-    timestamp: Date.now()
-  })
-  request.action = action
-  await action.save()
 }
 
 async function onPreValidationHook(request) {
