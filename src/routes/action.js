@@ -1,5 +1,6 @@
 const { auth } = require('../middlewares')
 const { StatusCodes } = require('http-status-codes')
+const { getActions } = require('../controllers/action')
 
 module.exports = () => {
   const app = require('../app')()
@@ -10,12 +11,11 @@ module.exports = () => {
     schema: {
       querystring: {
         type: 'object',
-        required: ['type'],
+        required: ['limit', 'offset'],
         properties: {
           type: { type: 'string' },
           limit: { type: 'number' },
           offset: { type: 'number' },
-          count: { type: 'number' },
         }
       },
       response: {
@@ -47,6 +47,6 @@ module.exports = () => {
       }
     },
     preHandler: auth,
-    handler: () => {}
+    handler: getActions
   })
 }

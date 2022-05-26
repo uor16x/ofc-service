@@ -19,7 +19,7 @@ const actionSchema = new Schema({
     type: Boolean,
     default: false
   }
-})
+}, { versionKey: false })
 
 module.exports = mongoose.model('Action', actionSchema)
 module.exports.TYPES = types
