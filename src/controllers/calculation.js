@@ -20,6 +20,6 @@ module.exports = {
         .status(StatusCodes.BAD_REQUEST)
         .send(new Error(`Failed to parse: ${err.stderr}`))
     }
-    return result.map(r => ({ ...r, result: {} }))
+    return result
   }
 }

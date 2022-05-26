@@ -2,8 +2,6 @@ const mongoose = require('mongoose')
 const { v4: uuid } = require('uuid')
 const { Schema } = mongoose
 
-const types = {}
-
 const actionSchema = new Schema({
   _id: {
     type: String,
@@ -22,4 +20,3 @@ const actionSchema = new Schema({
 }, { versionKey: false })
 
 module.exports = mongoose.model('Action', actionSchema)
-module.exports.TYPES = types
