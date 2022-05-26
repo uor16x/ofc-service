@@ -1,7 +1,13 @@
 const { auth } = require('../middlewares')
 const { StatusCodes } = require('http-status-codes')
 const idValidator = require('../helpers/id-validator')
-const { createGame, getGameById, updateGameById, deleteGameById } = require('../controllers/game')
+const {
+  createGame,
+  getGameById,
+  updateGameById,
+  deleteGameById,
+  getAllGames
+} = require('../controllers/game')
 
 const gameResponseJsonSchema = {
   type: 'object',
@@ -141,5 +147,20 @@ module.exports = () => {
     preHandler: auth,
     preValidation: idValidator,
     handler: deleteGameById
+  })
+
+  app.route({
+    method: 'GET',
+    url: '/game',
+    schema: {
+      response: {
+        [StatusCodes.OK]: {
+          type: 'array',
+          items: gameResponseJsonSchema
+        }
+      }
+    },
+    preHandler: auth,
+    handler: getAllGames
   })
 }
