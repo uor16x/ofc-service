@@ -87,4 +87,18 @@ module.exports = {
       )
     }
   },
+
+  async getAllGames(request, reply) {
+    const app = appGetter()
+    try {
+      return await app.db.Game.find()
+    } catch (err) {
+      errHandler(
+        reply,
+        err,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'Failed to fetch all games'
+      )
+    }
+  },
 }
