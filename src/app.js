@@ -39,7 +39,7 @@ async function onErrorHook(request, reply, err) {
 async function onRequestHook(request) {
   const action = new Action({
     ip: request.ip,
-    entryPoint: request.url,
+    entryPoint: request.routerPath,
     timestamp: Date.now()
   })
   request.action = action

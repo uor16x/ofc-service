@@ -13,7 +13,7 @@ module.exports = () => {
         type: 'object',
         required: ['limit', 'offset'],
         properties: {
-          type: { type: 'string' },
+          entryPoint: { type: 'string' },
           limit: { type: 'number' },
           offset: { type: 'number' },
         }

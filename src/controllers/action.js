@@ -6,7 +6,7 @@ module.exports = {
   async getActions(request, reply) {
     const app = appGetter()
     const {
-      type,
+      entryPoint,
       limit,
       offset,
     } = request.query
@@ -14,8 +14,8 @@ module.exports = {
     const searchParams = {
       _id: { $ne: request.action._id } // exclude current request from search
     }
-    if (type) {
-      searchParams.type = type
+    if (entryPoint) {
+      searchParams.entryPoint = entryPoint
     }
    
     try {
