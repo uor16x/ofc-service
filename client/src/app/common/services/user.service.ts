@@ -6,15 +6,19 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class UserService {
   private nickname: string;
+  isLoggedIn = false;
 
   constructor(private readonly storage: Storage) {}
 
   getNickname(): string | Promise<string> {
-    return this.nickname || this.storage.get('username');
+    const username = this.nickname || this.storage.get('username');
+    this.isLoggedIn = !!username;
+    return username;
   }
 
   async setNickname(newNick: string) {
     this.nickname = newNick;
+    this.isLoggedIn = true;
     await this.storage.set('username', newNick);
   }
 }
