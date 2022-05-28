@@ -4,15 +4,11 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "serve": "ionic serve -o"
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^13.2.7",
     "@angular/common": "~13.2.2",
     "@angular/core": "~13.2.2",
     "@angular/forms": "~13.2.2",
@@ -22,6 +18,7 @@
     "@capacitor/core": "3.5.1",
     "@ionic/angular": "^6.0.0",
     "@ionic/storage-angular": "^3.0.6",
+    "@ngneat/until-destroy": "^9.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "prettier": "^2.6.2",

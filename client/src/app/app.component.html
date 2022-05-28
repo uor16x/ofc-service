@@ -3,7 +3,7 @@
     side="start"
     menuId="first"
     contentId="main"
-    *ngIf="userService.isLoggedIn"
+    *ngIf="menuService.isVisible"
   >
     <ion-content>
       <div class="menu-container">
@@ -33,6 +33,6 @@
   <ion-menu-button
     class="overlay-menu-toggle"
     auto-hide="true"
-    *ngIf="userService.isLoggedIn"
+    *ngIf="menuService.isVisible"
   ></ion-menu-button>
 </ion-app>

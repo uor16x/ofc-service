@@ -7,7 +7,11 @@
 <ion-content>
   <div class="wrapper">
     <div class="games-list-wrapper" *ngIf="games">
-      <app-game-item *ngFor="let game of games" [game]="game"></app-game-item>
+      <app-game-item
+        *ngFor="let game of games"
+        [game]="game"
+        (click)="openGame(game)"
+      ></app-game-item>
     </div>
     <ion-button id="hostButton" (click)="onHostGame()"> Host </ion-button>
   </div>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Game } from '../../common/models';
+import { GameService } from '../../common/services';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -6,7 +10,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.page.scss'],
 })
 export class GamePage implements OnInit {
-  constructor() {}
+  game: Game;
+  openCardsSubject: Subject<boolean> = new Subject();
 
-  ngOnInit() {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly gameService: GameService
+  ) {}
+
+  ngOnInit() {
+    const gameId = this.route.snapshot.params?.id;
+    if (!gameId) {
+      //error toast
+      //redirect to lobby
+    }
+    this.gameService.getGameById(gameId).subscribe((response) => {
+      this.game = response;
+      console.log(response);
+    });
+  }
 }

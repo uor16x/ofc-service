@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'lobby', pathMatch: 'full' },
   {
-    path: 'game',
+    path: 'game/:id',
     loadChildren: () =>
       import('../pages/game/game.module').then((m) => m.GamePageModule),
   },

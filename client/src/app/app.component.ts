@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage-angular';
-import { UserService } from './common/services/user.service';
+import { MenuService } from './common/services/menu.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private storage: Storage,
-    public userService: UserService
+    public menuService: MenuService
   ) {}
 
   async ngOnInit() {

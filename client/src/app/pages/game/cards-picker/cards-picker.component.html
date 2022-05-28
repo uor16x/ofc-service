@@ -1,0 +1,33 @@
+<div
+  class="toggle-cards"
+  [@openClose]="isCardsPanelOpened ? 'opened' : 'closed'"
+>
+  <div class="wrapper">
+    <div class="cards" *ngIf="isCardsPanelOpened">
+      <div class="suit-row" *ngFor="let suit of allDeck | keyvalue">
+        <div
+          class="img-container"
+          *ngFor="let card of suit.value"
+          (click)="onCardClick(card)"
+          [ngClass]="{ picked: isPicked(card.name) }"
+        >
+          <img
+            src="{{ card.name ? 'assets/cards/' + card.name + '.png' : '' }}"
+          />
+        </div>
+      </div>
+    </div>
+    <ion-button *ngIf="isCardsPanelOpened" (click)="clearHand()"
+      >Clear hand</ion-button
+    >
+    <img
+      class="toggler"
+      (click)="toggleCardsTable()"
+      [src]="
+        isCardsPanelOpened
+          ? 'assets/icon/close-cards.png'
+          : 'assets/icon/open-cards.png'
+      "
+    />
+  </div>
+</div>
