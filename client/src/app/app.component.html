@@ -1,0 +1,32 @@
+<ion-app>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-content>
+      <div class="menu-container">
+        <ion-menu-toggle>
+          <ion-list>
+            <ion-item [routerLink]="['/game']">{{
+              "menu.game" | translate
+            }}</ion-item>
+            <ion-item [routerLink]="['/lobby']">{{
+              "menu.lobby" | translate
+            }}</ion-item>
+            <ion-item [routerLink]="['/history']">{{
+              "menu.history" | translate
+            }}</ion-item>
+            <ion-item [routerLink]="['/logs']">{{
+              "menu.logs" | translate
+            }}</ion-item>
+            <ion-item [routerLink]="['/settings']" class="settings">{{
+              "menu.settings" | translate
+            }}</ion-item>
+          </ion-list>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+  <ion-menu-button
+    class="overlay-menu-toggle"
+    auto-hide="true"
+  ></ion-menu-button>
+</ion-app>

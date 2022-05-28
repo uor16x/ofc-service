@@ -1,0 +1,16 @@
+{
+  "menu": {
+    "game": "Current Game",
+    "lobby": "Lobby",
+    "history": "Game History",
+    "logs": "Logs",
+    "settings": "Settings"
+  },
+  "pages": {
+    "settings": {
+      "language": {
+        "title": "Language"
+      }
+    }
+  }
+}
