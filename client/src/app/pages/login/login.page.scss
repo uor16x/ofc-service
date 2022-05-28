@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  .set-nick {
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    ion-button {
+      margin-top: 30px;
+    }
+  }
+}

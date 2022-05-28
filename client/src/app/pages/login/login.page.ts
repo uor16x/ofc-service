@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../common/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  nicknameControl = new FormControl('', [Validators.required]);
 
-  constructor() { }
+  constructor(
+    private readonly userService: UserService,
+    private readonly router: Router
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  async setNickname() {
+    await this.userService.setNickname(this.nicknameControl.value);
+    this.router.navigate(['']);
   }
-
 }

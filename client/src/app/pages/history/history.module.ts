@@ -9,12 +9,7 @@ import { HistoryPageRoutingModule } from './history-routing.module';
 import { HistoryPage } from './history.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HistoryPageRoutingModule
-  ],
-  declarations: [HistoryPage]
+  imports: [CommonModule, FormsModule, IonicModule, HistoryPageRoutingModule],
+  declarations: [HistoryPage],
 })
 export class HistoryPageModule {}
