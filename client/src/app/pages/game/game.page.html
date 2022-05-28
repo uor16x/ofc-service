@@ -4,4 +4,8 @@
 <!--  </ion-toolbar>-->
 <!--</ion-header>-->
 
-<ion-content> </ion-content>
+<ion-content>
+  <div class="content-wrapper">
+    <app-cards-picker [open]="openCardsSubject.asObservable()"></app-cards-picker>
+  </div>
+</ion-content>

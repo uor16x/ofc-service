@@ -15,7 +15,7 @@ export class GameService {
   constructor(private readonly httpClient: HttpClient) {}
 
   getGameById(id: string) {
-    return this.httpClient.get(environment.api.game.get(id));
+    return this.httpClient.get<Game>(environment.api.game.get(id));
   }
 
   getAllGames() {
