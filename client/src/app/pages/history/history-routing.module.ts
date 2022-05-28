@@ -6,8 +6,8 @@ import { HistoryPage } from './history.page';
 const routes: Routes = [
   {
     path: '',
-    component: HistoryPage
-  }
+    component: HistoryPage,
+  },
 ];
 
 @NgModule({

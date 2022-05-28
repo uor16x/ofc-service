@@ -6,8 +6,8 @@ import { LobbyPage } from './lobby.page';
 const routes: Routes = [
   {
     path: '',
-    component: LobbyPage
-  }
+    component: LobbyPage,
+  },
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../services';
-import { Game } from '../../shared/models';
+import { Game } from '../../common/models';
+import { GameService } from '../../common/services';
 
 @Component({
   selector: 'app-lobby',
