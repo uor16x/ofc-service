@@ -91,7 +91,7 @@ module.exports = {
   async getAllGames(request, reply) {
     const app = appGetter()
     try {
-      return await app.db.Game.find()
+      return await app.db.Game.find().sort({ creationTime: -1 })
     } catch (err) {
       errHandler(
         reply,

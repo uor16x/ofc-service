@@ -1,5 +1,10 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
+  <ion-menu
+    side="start"
+    menuId="first"
+    contentId="main"
+    *ngIf="userService.isLoggedIn"
+  >
     <ion-content>
       <div class="menu-container">
         <ion-menu-toggle>
@@ -28,5 +33,6 @@
   <ion-menu-button
     class="overlay-menu-toggle"
     auto-hide="true"
+    *ngIf="userService.isLoggedIn"
   ></ion-menu-button>
 </ion-app>

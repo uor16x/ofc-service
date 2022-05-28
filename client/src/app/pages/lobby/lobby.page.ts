@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from '../../common/models';
 import { GameService } from '../../common/services';
+import { ModalController } from '@ionic/angular';
+import { HostModalComponent } from './host-modal/host-modal.component';
 
 @Component({
   selector: 'app-lobby',
@@ -10,20 +12,27 @@ import { GameService } from '../../common/services';
 export class LobbyPage implements OnInit {
   games: Game[];
 
-  constructor(private readonly gameService: GameService) {}
+  constructor(
+    private readonly gameService: GameService,
+    private readonly modalController: ModalController
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.gameService.games.subscribe((games) => (this.games = games));
+  }
 
   ionViewWillEnter() {
     this.getGames();
   }
 
   getGames() {
-    this.gameService.getAllGames().subscribe((response) => {
-      this.games = response;
-      console.log(this.games);
-    });
+    this.gameService.getAllGames();
   }
 
-  onHostGame() {}
+  async onHostGame() {
+    const modal = await this.modalController.create({
+      component: <any>HostModalComponent,
+    });
+    return await modal.present();
+  }
 }
