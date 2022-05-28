@@ -5,7 +5,16 @@
 <!--</ion-header>-->
 
 <ion-content>
-  <div class="content-wrapper">
-    <app-cards-picker [open]="openCardsSubject.asObservable()"></app-cards-picker>
+  <div class="content-wrapper" *ngIf="game">
+    <div class="stats">
+      <div class="player-stat" *ngFor="let stat of game.stats">
+        <div>{{stat.player}}</div>
+        <div>{{stat.stat | stat}}</div>
+      </div>
+    </div>
+
+    <app-cards-picker
+      [open]="openCardsSubject.asObservable()"
+    ></app-cards-picker>
   </div>
 </ion-content>
