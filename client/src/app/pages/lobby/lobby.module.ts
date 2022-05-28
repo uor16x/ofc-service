@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -11,7 +11,13 @@ import { GameItemComponent } from './game/game/game-item.component';
 import { HostModalComponent } from './host-modal/host-modal.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, LobbyPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    LobbyPageRoutingModule,
+    ReactiveFormsModule,
+  ],
   declarations: [LobbyPage, GameItemComponent, HostModalComponent],
 })
 export class LobbyPageModule {}

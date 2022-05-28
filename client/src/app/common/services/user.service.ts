@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root',
 })
 export class UserService {
-  nickname: string;
+  private nickname: string;
 
   constructor(private readonly storage: Storage) {}
 

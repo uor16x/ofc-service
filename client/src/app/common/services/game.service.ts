@@ -3,11 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Game } from '../models';
+import { CreateGameDto } from '../dtos';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  games = new BehaviorSubject<Game[]>([]);
+
   constructor(private readonly httpClient: HttpClient) {}
 
   getGameById(id: string) {
@@ -15,13 +19,20 @@ export class GameService {
   }
 
   getAllGames() {
-    return this.httpClient.get<Game[]>(environment.api.game.getAll).pipe(
-      map((games) => {
-        games.forEach((game) => {
-          game.creationTime = new Date(game.creationTime);
-        });
-        return games;
-      })
-    );
+    this.httpClient
+      .get<Game[]>(environment.api.game.getAll)
+      .pipe(
+        map((games) => {
+          games.forEach((game) => {
+            game.creationTime = new Date(game.creationTime);
+          });
+          return games;
+        })
+      )
+      .subscribe((games) => this.games.next(games));
+  }
+
+  hostGame(gameData: CreateGameDto) {
+    return this.httpClient.post(environment.api.game.create, gameData);
   }
 }
