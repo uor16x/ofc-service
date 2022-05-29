@@ -94,6 +94,8 @@ module.exports = () => {
                   }
                 }
               },
+              isScoop: { type: 'boolean' },
+              isNextFantasy: { type: 'boolean' },
               top: lineResponseSchema,
               middle: lineResponseSchema,
               bottom: lineResponseSchema,
