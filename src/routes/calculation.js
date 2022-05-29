@@ -2,6 +2,51 @@ const { auth } = require('../middlewares')
 const { StatusCodes } = require('http-status-codes')
 const { calc } = require('../controllers/calculation')
 
+const combinationSchema = { 
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    part1: {
+      type: 'object',
+      properties: {
+        suit: { type: 'string' },
+        value: { type: 'string' },
+      }
+    },
+    part2: {
+      type: 'object',
+      properties: {
+        suit: { type: 'string' },
+        value: { type: 'string' },
+      }
+    },
+    rank: {
+      type: 'object',
+      properties: {
+        suit: { type: 'string' },
+        value: { type: 'string' },
+      }
+    }
+  }
+}
+
+const lineResponseSchema = {
+  type: 'object',
+  properties: {
+    points: { type: 'number' },
+    lineType: { type: 'string' },
+    result: {
+      type: 'array',
+      maxItems: 2,
+      minItems: 2,
+      items: { type: 'number' }
+    },
+    combination: {
+      type: 'object'
+    }
+  }
+}
+
 module.exports = () => {
   const app = require('../app')()
 
@@ -38,12 +83,27 @@ module.exports = () => {
           minItems: 3,
           items: {
             type: 'object',
-            required: ['username', 'result'],
             properties: {
-              username: { type: 'string' },
-              result: {
-                type: 'object'
-              }
+              player: {
+                type: 'object',
+                properties: {
+                  username: { type: 'string' },
+                  board: {
+                    type: 'array', 
+                    items: combinationSchema,
+                  }
+                }
+              },
+              top: lineResponseSchema,
+              middle: lineResponseSchema,
+              bottom: lineResponseSchema,
+              totalDetailed: {
+                type: 'array',
+                maxItems: 2,
+                minItems: 2,
+                items: { type: 'number' }
+              },
+              total: { type: 'number' }
             }
           }
         }
