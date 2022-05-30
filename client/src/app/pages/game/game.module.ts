@@ -8,9 +8,17 @@ import { GamePageRoutingModule } from './game-routing.module';
 
 import { GamePage } from './game.page';
 import { CardsPickerComponent } from './cards-picker/cards-picker.component';
+import { SharedModule } from '../../shared/shared.module';
+import { PlayerHandComponent } from './player-hand/player-hand.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, GamePageRoutingModule],
-  declarations: [GamePage, CardsPickerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    GamePageRoutingModule,
+    SharedModule,
+  ],
+  declarations: [GamePage, CardsPickerComponent, PlayerHandComponent],
 })
 export class GamePageModule {}

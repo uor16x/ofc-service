@@ -10,12 +10,12 @@ process
   .on('uncaughtException', app.fatalErr)
 
 route()
-socket()
 start()
 
 async function start() {
   try {
     await db()
+    socket()
     await app.listen(process.env.PORT)
   } catch (err) {
     app.fatalErr(err)

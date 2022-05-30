@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GameService } from '../../../common/services';
+import { FormBuilder, Validators } from '@angular/forms';
+import { GameService, UserService } from '../../../common/services';
 import { ModalController } from '@ionic/angular';
-import { UserService } from '../../../common/services/user.service';
 
 @Component({
   selector: 'app-host-modal',

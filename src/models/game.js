@@ -7,7 +7,10 @@ const gameSchema = new Schema({
   name: String,
   stake: Number,
   status: String,
-  players: [String],
+  players: [{
+    name: String,
+    hand: [{ type: Schema.Types.ObjectId, ref: 'Hand' }]
+  }],
   history: [ObjectId],
   stats: [{
     player: String,

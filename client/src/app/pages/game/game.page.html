@@ -5,7 +5,37 @@
 <!--</ion-header>-->
 
 <ion-content>
-  <div class="content-wrapper">
-    <app-cards-picker [open]="openCardsSubject.asObservable()"></app-cards-picker>
+  <div class="content-wrapper" *ngIf="game">
+    <div class="stats">
+      <div class="player-stat" *ngFor="let stat of game.stats">
+        <div>{{stat.player}}</div>
+        <div>{{stat.stat | stat}}</div>
+      </div>
+    </div>
+
+    <div class="current-hand" *ngIf="game.players">
+      <app-player-hand
+        *ngFor="let player of game.players"
+        (select)="onCardSelect($event)"
+        [player]="player"
+        (done)="onPlayerDone()"
+        [selectedCard]="selectedCard"
+        [isHero]="player.name === username"
+      >
+      </app-player-hand>
+    </div>
+
+    <app-cards-picker
+      [open]="openCardsSubject.asObservable()"
+      [players]="game.players"
+      (pick)="onCardPick($event)"
+      (clear)="onClearHand()"
+    ></app-cards-picker>
+
+    <div class="footer">
+      <ion-button (click)="onCalc()" *ngIf="isHost">Calc</ion-button>
+      <ion-button (click)="onNext()" *ngIf="isHost">Next</ion-button>
+      <ion-button (click)="getSocketState()" *ngIf="isHost">showState</ion-button>
+    </div>
   </div>
 </ion-content>

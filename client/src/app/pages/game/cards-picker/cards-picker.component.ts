@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { PickCard } from '../../../common/models';
-import { MenuService } from '../../../common/services/menu.service';
+import { PickCard, Player } from '../../../common/models';
+import { MenuService } from '../../../common/services';
 import {
   animate,
   state,
@@ -49,12 +49,13 @@ export class CardsPickerComponent implements OnInit {
     hearts: [],
   };
 
+  @Input('open') openObservable: Observable<boolean>;
+  @Input('players') players: Player[];
   @Output('pick') onPick: EventEmitter<{
     card: string;
     action: 'pick' | 'unpick';
   }> = new EventEmitter();
   @Output('clear') onClear: EventEmitter<void> = new EventEmitter();
-  @Input('open') openObservable: Observable<boolean>;
 
   constructor(private readonly menuService: MenuService) {}
 
@@ -72,7 +73,18 @@ export class CardsPickerComponent implements OnInit {
   }
 
   isPicked(card: string) {
-    return false;
+    let res = false;
+    for (let i = 0; i < this.players.length; i++) {
+      if (
+        this.players[i].hand.top.cards.includes(card) ||
+        this.players[i].hand.middle.cards.includes(card) ||
+        this.players[i].hand.bottom.cards.includes(card)
+      ) {
+        res = true;
+        break;
+      }
+    }
+    return res;
   }
 
   onCardClick(card: PickCard) {

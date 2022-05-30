@@ -1,0 +1,149 @@
+<div class="wrapper" *ngIf="player.hand">
+  <div class="title">
+    <div class="nick">{{ player.name }}</div>
+    <div class="result">{{ roundTotal ? roundTotal : 0 }}</div>
+  </div>
+
+  <div class="board">
+    <div class="row" *ngIf="player.hand.top as top">
+      <div class="cards-block">
+        <div class="card-row top">
+          <div
+            class="card-container"
+            (click)="select('top', i)"
+            *ngFor="let card of top.cards; let i = index"
+            [ngClass]="{
+              selected:
+                isHero &&
+                selectedCard.line === 'top' &&
+                selectedCard.index === i,
+              scooped: player.hand.isScoop
+            }"
+          >
+            <img [src]="card ? getCardSrc(card) : ''" />
+          </div>
+        </div>
+        <div
+          class="combo-row"
+          *ngIf="
+            player.hand.isDone &&
+            !player.hand.isScoop &&
+            top.combination as combo
+          "
+        >
+          {{ combo }}
+        </div>
+      </div>
+      <div class="stats-block">
+        <div class="stat">
+          <div class="detailed centered">
+            <div>{{ top.stats.line | stat }}</div>
+            <div>{{ top.stats.bonus | stat }}</div>
+          </div>
+          <div class="total centered">{{ top.stats.total | stat }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="player.hand.middle as middle">
+      <div class="cards-block">
+        <div class="card-row middle">
+          <div
+            class="card-container"
+            (click)="select('middle', i)"
+            *ngFor="let card of middle.cards; let i = index"
+            [ngClass]="{
+              selected:
+                isHero &&
+                selectedCard.line === 'middle' &&
+                selectedCard.index === i,
+              scooped: player.hand.isScoop
+            }"
+          >
+            <img [src]="card ? getCardSrc(card) : ''" />
+          </div>
+        </div>
+        <div
+          class="combo-row"
+          *ngIf="
+            player.hand.isDone &&
+            !player.hand.isScoop &&
+            middle.combination as combo
+          "
+        >
+          {{ combo }}
+        </div>
+      </div>
+      <div class="stats-block">
+        <div class="stat">
+          <div class="detailed centered">
+            <div>{{ middle.stats.line | stat }}</div>
+            <div>{{ middle.stats.bonus | stat }}</div>
+          </div>
+          <div class="total centered">{{ middle.stats.total | stat }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="player.hand.bottom as bottom">
+      <div class="cards-block">
+        <div class="card-row bottom">
+          <div
+            class="card-container"
+            (click)="select('bottom', i)"
+            *ngFor="let card of bottom.cards; let i = index"
+            [ngClass]="{
+              selected:
+                isHero &&
+                selectedCard.line === 'bottom' &&
+                selectedCard.index === i,
+              scooped: player.hand.isScoop
+            }"
+          >
+            <img [src]="card ? getCardSrc(card) : ''" />
+          </div>
+        </div>
+        <div
+          class="combo-row"
+          *ngIf="
+            player.hand.isDone &&
+            !player.hand.isScoop &&
+            bottom.combination as combo
+          "
+        >
+          {{ combo }}
+        </div>
+      </div>
+      <div class="stats-block">
+        <div class="stat">
+          <div class="detailed centered">
+            <div>{{ bottom.stats.line | stat }}</div>
+            <div>{{ bottom.stats.bonus | stat }}</div>
+          </div>
+          <div class="total centered">{{ bottom.stats.total | stat }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scoop" *ngIf="player.hand.isScoop">Скуп</div>
+  </div>
+
+  <div
+    class="completed-btn"
+    [class.not-completed]="!player.hand.isDone"
+    *ngIf="isHero"
+    (click)="onDoneClick()"
+  >
+    <ion-icon
+      name="checkmark-circle-outline"
+      [class.done]="player.hand.isDone"
+    ></ion-icon>
+  </div>
+
+  <div class="completed-btn" *ngIf="!isHero">
+    <ion-icon
+      name="checkmark-circle-outline"
+      [class.done]="player.hand.isDone"
+    ></ion-icon>
+  </div>
+</div>
