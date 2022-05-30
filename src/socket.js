@@ -27,14 +27,14 @@ module.exports = () => {
       socket.on('disconnect', () => app.log.info(`Socket disconnected: ${socket.id}`))
 
       socket.on('joinGame', async joinData => {
-        app.log.info(`Received joinGame msg: ${JSON.stringify(joinData, null, 2)}`)
+        app.log.info(`Received joinGame: ${JSON.stringify(joinData, null, 2)}`)
         await state.joinPlayer(joinData.gameId, joinData.playerName)
         socket.join(joinData.gameId)
         emitUpdatedGame(joinData.gameId)
       })
 
       socket.on('updateHand', async updateHandData => {
-        app.log.info(`Received joinGame msg: ${JSON.stringify(updateHandData, null, 3)}`)
+        app.log.info(`Received updateHand: ${JSON.stringify(updateHandData, null, 2)}`)
         state.updateHand(updateHandData)
         emitUpdatedGame(updateHandData.gameId)
       })
