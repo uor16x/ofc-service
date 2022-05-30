@@ -34,7 +34,4 @@ const handSchema = new Schema({
   },
 })
 
-module.exports = {
-  HandModel: mongoose.model('Hand', handSchema),
-  handSchema: handSchema
-}
+module.exports = mongoose.model('Hand', handSchema)

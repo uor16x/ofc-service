@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { handSchema } = require('./hand')
 const { Schema, ObjectId } = mongoose
 
 const gameSchema = new Schema({
@@ -10,7 +9,7 @@ const gameSchema = new Schema({
   status: String,
   players: [{
     name: String,
-    hand: handSchema
+    hand: [{ type: Schema.Types.ObjectId, ref: 'Hand' }]
   }],
   history: [ObjectId],
   stats: [{
