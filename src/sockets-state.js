@@ -12,7 +12,6 @@ class SocketsState {
     const app = appGetter()
     const allGames = await app.db.Game.find({ status: 'OPEN' })
     allGames.forEach(game => (this.games[game._id] = game))
-    console.log(this.games)
   }
 
   async addGame(gameId) {

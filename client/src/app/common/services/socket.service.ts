@@ -8,7 +8,7 @@ import { Hand } from '../models';
   providedIn: 'root',
 })
 export class SocketService {
-  currentGamePlayers$ = new BehaviorSubject([]);
+  currentGame$ = new BehaviorSubject(null);
   socketState$ = new Subject();
 
   constructor(
@@ -17,8 +17,8 @@ export class SocketService {
   ) {}
 
   listenMessages() {
-    this.socket.on('players-update', (players) => {
-      this.currentGamePlayers$.next(players);
+    this.socket.on('game-update', (game) => {
+      this.currentGame$.next(game);
     });
     this.socket.on('socketState', (state) => {
       this.socketState$.next(state);

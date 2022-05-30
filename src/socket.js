@@ -19,9 +19,9 @@ module.exports = () => {
     app.io.on('connect', socket => {
       app.log.info(`Socket connected: ${socket.id}`)
 
-      const emitUpdatedPlayers = async (gameId) => {
+      const emitUpdatedGame = async (gameId) => {
         const game = await state.getGame(gameId)
-        app.io.to(gameId).emit('players-update', game.players)
+        app.io.to(gameId).emit('game-update', game)
       }
 
       socket.on('disconnect', () => app.log.info(`Socket disconnected: ${socket.id}`))
@@ -30,13 +30,13 @@ module.exports = () => {
         app.log.info(`Received joinGame msg: ${JSON.stringify(joinData, null, 2)}`)
         await state.joinPlayer(joinData.gameId, joinData.playerName)
         socket.join(joinData.gameId)
-        emitUpdatedPlayers(joinData.gameId)
+        emitUpdatedGame(joinData.gameId)
       })
 
       socket.on('updateHand', async updateHandData => {
         app.log.info(`Received joinGame msg: ${JSON.stringify(updateHandData, null, 3)}`)
         state.updateHand(updateHandData)
-        emitUpdatedPlayers(updateHandData.gameId)
+        emitUpdatedGame(updateHandData.gameId)
       })
 
       // for debugging

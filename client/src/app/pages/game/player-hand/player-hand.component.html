@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="player.hand">
   <div class="title">
     <div class="nick">{{ player.name }}</div>
     <div class="result">{{ roundTotal ? roundTotal : 0 }}</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game, Player } from '../../common/models';
 import { GameService, SocketService, UserService } from '../../common/services';
-import { Subject } from 'rxjs';
+import { filter, Subject } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -37,19 +37,14 @@ export class GamePage implements OnInit {
       //redirect to lobby
     }
     this.username = await this.userService.getNickname();
-    this.gameService.getGameById(gameId).subscribe((response) => {
-      this.game = response;
-      this._sortPlayers();
-      this.socketService.currentGamePlayers$
-        .pipe(untilDestroyed(this))
-        .subscribe((updatedPlayers) => {
-          this.game.players = updatedPlayers;
-          this._sortPlayers();
-          console.log(this.game);
-        });
-      this.socketService.joinGame(this.game._id);
-      this.isHost = this.game.hostName === this.username;
-    });
+    this.socketService.currentGame$
+      .pipe(untilDestroyed(this), filter(Boolean))
+      .subscribe((updatedGame) => {
+        this.game = updatedGame;
+        this._sortPlayers();
+        this.isHost = this.game.hostName === this.username;
+      });
+    this.socketService.joinGame(gameId);
     this.socketService.socketState$
       .pipe(untilDestroyed(this))
       .subscribe((state) => this.displaySocketState(state));
