@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { handSchema } = require('./hand')
 const { Schema, ObjectId } = mongoose
 
 const gameSchema = new Schema({
@@ -7,7 +8,10 @@ const gameSchema = new Schema({
   name: String,
   stake: Number,
   status: String,
-  players: [String],
+  players: [{
+    name: String,
+    hand: handSchema
+  }],
   history: [ObjectId],
   stats: [{
     player: String,

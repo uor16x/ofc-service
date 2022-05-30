@@ -13,10 +13,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { MainModule } from './modules/main.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { apiBaseUrl } from '../environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const socketConfig: SocketIoConfig = { url: apiBaseUrl, options: {} };
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +42,7 @@ export function createTranslateLoader(http: HttpClient) {
     IonicStorageModule.forRoot(),
     MainModule,
     BrowserAnimationsModule,
+    SocketIoModule.forRoot(socketConfig),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

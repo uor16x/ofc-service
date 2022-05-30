@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class StatPipe implements PipeTransform {
   transform(stat): string {
-    return stat > 0 ? `+${stat}` : stat.toString();
+    return typeof stat === 'number'
+      ? stat > 0
+        ? `+${stat}`
+        : stat.toString()
+      : '';
   }
 }

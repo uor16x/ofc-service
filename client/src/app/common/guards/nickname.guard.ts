@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivateChild } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services';
 
 @Injectable({
   providedIn: 'root',

@@ -21,4 +21,22 @@
       }
     }
   }
+
+  .current-hand {
+    width: 100%;
+  }
+
+  .footer {
+    width: 100%;
+    height: 60px;
+    padding-left: 50px;
+    background: #117e9c;
+    display: flex;
+    align-items: center;
+
+    ion-button {
+      --background: red;
+      margin-left: 14px;
+    };
+  }
 }

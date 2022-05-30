@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage-angular';
-import { MenuService } from './common/services/menu.service';
+import { MenuService, SocketService } from './common/services';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +10,10 @@ import { MenuService } from './common/services/menu.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private translate: TranslateService,
-    private storage: Storage,
-    public menuService: MenuService
+    private readonly translate: TranslateService,
+    private readonly storage: Storage,
+    public readonly menuService: MenuService,
+    private readonly socketService: SocketService
   ) {}
 
   async ngOnInit() {
@@ -22,5 +23,6 @@ export class AppComponent implements OnInit {
       this.storage.set('lang', langChangeEvent.lang);
     });
     this.translate.use(storedLanguage || this.translate.defaultLang);
+    this.socketService.listenMessages();
   }
 }
