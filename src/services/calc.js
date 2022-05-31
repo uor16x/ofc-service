@@ -7,11 +7,16 @@ module.exports = async function calc(input) {
   }
   try {
     const arg = input
-      .map(({ username, cards }) => `(\\"${username}\\", [${cards.map(card => `\\"${card}\\"`)}])`)
+      .map(({ username, withFantasy, cards }) => `(\\"${username}\\", ${capitalizeBool(!!withFantasy)}, [${cards.map(card => `\\"${card}\\"`)}])`)
       .join(',')
     const { stdout } = await exec(`${process.env.CALC_PATH} "[${arg}]"`)
     return JSON.parse(JSON.parse(stdout)) // external calc binary requires double unpacking
   } catch (err) {
     throw new Error(`Failed to parse: ${err.stderr}`)
   }
+}
+
+function capitalizeBool(bool) {
+  bool = bool.toString()
+  return bool.charAt(0).toUpperCase() + bool.slice(1)
 }

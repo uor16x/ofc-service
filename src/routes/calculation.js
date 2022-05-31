@@ -41,9 +41,7 @@ const lineResponseSchema = {
       minItems: 2,
       items: { type: 'number' }
     },
-    combination: {
-      type: 'object'
-    }
+    combination: combinationSchema
   }
 }
 
@@ -60,9 +58,10 @@ module.exports = () => {
         minItems: 3,
         items: {
           type: 'object',
-          required: ['username', 'cards'],
+          required: ['username', 'withFantasy', 'cards'],
           properties: {
             username: { type: 'string' },
+            withFantasy: { type: 'boolean' },
             cards: {
               type: 'array',
               minItems: 13,
@@ -102,8 +101,7 @@ module.exports = () => {
               totalDetailed: {
                 type: 'array',
                 maxItems: 2,
-                minItems: 2,
-                items: { type: 'number' }
+                minItems: 2
               },
               total: { type: 'number' }
             }
