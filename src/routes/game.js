@@ -9,6 +9,25 @@ const {
   getAllGames
 } = require('../controllers/game')
 
+const handRowJsonSchema = {
+  type: 'object',
+  properties: {
+    combination: { type: 'string' },
+    cards: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    stats: {
+      type: 'object',
+      properties: {
+        bonus: { type: 'number' },
+        line: { type: 'number' },
+        total: { type: 'number' }
+      }
+    }
+  }
+}
+
 const gameResponseJsonSchema = {
   type: 'object',
   properties: {
@@ -24,7 +43,21 @@ const gameResponseJsonSchema = {
     players: {
       type: 'array',
       items: {
-        type: 'string'
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          hand: {
+            type: 'object',
+            properties: {
+              isDone: { type: 'boolean' },
+              isScoop: { type: 'boolean' },
+              nextIsFantasy: { type: 'boolean' },
+              top: handRowJsonSchema,
+              middle: handRowJsonSchema,
+              bottom: handRowJsonSchema
+            }
+          }
+        }
       }
     },
     history: {
