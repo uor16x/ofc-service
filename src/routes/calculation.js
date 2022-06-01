@@ -34,6 +34,8 @@ const lineResponseSchema = {
   type: 'object',
   properties: {
     points: { type: 'number' },
+    totalCombination: { type: 'number' },
+    totalBonus: { type: 'number' },
     lineType: { type: 'string' },
     result: {
       type: 'array',
