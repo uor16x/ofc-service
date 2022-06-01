@@ -7,6 +7,9 @@ import { MenuService } from './menu.service';
 })
 export class UserService {
   private nickname: string;
+  settings = {
+    language: 'en'
+  }
 
   constructor(
     private readonly storage: Storage,

@@ -34,7 +34,7 @@ export class GamePage implements OnInit {
     private readonly gameService: GameService,
     private readonly socketService: SocketService,
     private readonly userService: UserService,
-    private readonly menuService: MenuService
+    private readonly menuService: MenuService,
   ) {}
 
   async ngOnInit() {
@@ -49,6 +49,7 @@ export class GamePage implements OnInit {
       .subscribe((updatedGame) => {
         this.game = updatedGame;
         this._sortPlayers();
+        console.log(this.game);
         this.isHost = this.game.hostName === this.username;
         this.isLoading = false;
       });
@@ -56,7 +57,7 @@ export class GamePage implements OnInit {
     this.socketService.socketState$
       .pipe(untilDestroyed(this))
       .subscribe((state) => this.displaySocketState(state));
-    this.menuService.currentGameId = gameId;
+    this.menuService.saveCurrentGameId(gameId);
   }
 
   private _sortPlayers() {
@@ -256,8 +257,7 @@ export class GamePage implements OnInit {
   }
 
   onCalc() {
-    this.gameService.calcGame(this.game)
-      .subscribe((response) => console.log("response: ", response));
+    this.socketService.calc(this.game._id);
   }
 
   onNext() {}
