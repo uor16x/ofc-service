@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game, Player } from '../../common/models';
-import { GameService, SocketService, UserService } from '../../common/services';
+import {
+  GameService,
+  MenuService,
+  SocketService,
+  UserService,
+} from '../../common/services';
 import { filter, Subject } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
@@ -22,12 +27,14 @@ export class GamePage implements OnInit {
   isHost = false;
   isNextEnabled = false;
   hero: Player;
+  isLoading = true;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly gameService: GameService,
     private readonly socketService: SocketService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly menuService: MenuService
   ) {}
 
   async ngOnInit() {
@@ -43,11 +50,13 @@ export class GamePage implements OnInit {
         this.game = updatedGame;
         this._sortPlayers();
         this.isHost = this.game.hostName === this.username;
+        this.isLoading = false;
       });
     this.socketService.joinGame(gameId);
     this.socketService.socketState$
       .pipe(untilDestroyed(this))
       .subscribe((state) => this.displaySocketState(state));
+    this.menuService.currentGameId = gameId;
   }
 
   private _sortPlayers() {

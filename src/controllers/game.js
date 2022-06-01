@@ -1,17 +1,22 @@
 const { StatusCodes } = require('http-status-codes')
 const appGetter = require('../app')
 const errHandler = require('../helpers/err')
+const socketState = require('../sockets/sockets-state')
 
 module.exports = {
   async createGame(request, reply) {
     const body = request.body
     const app = appGetter()
     try {
-      return app.db.Game.create({
+      const newGame = await app.db.Game.create({
         ...body,
+        players: [],
         creationTime: new Date(),
         status: 'OPEN'
       })
+      const state = await socketState()
+      state.addGame(newGame.toObject())
+      return newGame
     } catch (err) {
       errHandler(
         reply,

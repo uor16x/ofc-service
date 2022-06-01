@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper">
-    <div class="games-list-wrapper" *ngIf="games">
+  <div class="wrapper" *ngIf="!isLoading">
+    <div class="games-list-wrapper">
       <app-game-item
         *ngFor="let game of games"
         [game]="game"
@@ -15,4 +15,5 @@
     </div>
     <ion-button id="hostButton" (click)="onHostGame()"> Host </ion-button>
   </div>
+  <app-spinner *ngIf="isLoading"></app-spinner>
 </ion-content>

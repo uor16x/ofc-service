@@ -30,7 +30,6 @@ export class HostModalComponent implements OnInit {
       hostName: await this.userService.getNickname(),
     };
     this.gameService.hostGame(createGameData).subscribe();
-    this.gameService.getAllGames();
     this._closeModal();
   }
 

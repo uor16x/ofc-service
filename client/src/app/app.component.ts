@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage-angular';
-import { MenuService, SocketService } from './common/services';
+import {
+  GameService,
+  MenuService,
+  SocketService,
+  ToastService,
+} from './common/services';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +18,9 @@ export class AppComponent implements OnInit {
     private readonly translate: TranslateService,
     private readonly storage: Storage,
     public readonly menuService: MenuService,
-    private readonly socketService: SocketService
+    private readonly socketService: SocketService,
+    private readonly gameService: GameService,
+    private readonly toastService: ToastService
   ) {}
 
   async ngOnInit() {
@@ -24,5 +31,9 @@ export class AppComponent implements OnInit {
     });
     this.translate.use(storedLanguage || this.translate.defaultLang);
     this.socketService.listenMessages();
+    this.socketService.newGameHosted$.subscribe((newGame) => {
+      this.gameService.getAllGames();
+      this.toastService.showGameHostedToast(newGame.hostName);
+    });
   }
 }

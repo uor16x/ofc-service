@@ -5,7 +5,7 @@
 <!--</ion-header>-->
 
 <ion-content>
-  <div class="content-wrapper" *ngIf="game">
+  <div class="content-wrapper" *ngIf="!isLoading">
     <div class="stats">
       <div class="player-stat" *ngFor="let stat of game.stats">
         <div>{{stat.player}}</div>
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="current-hand" *ngIf="game.players">
+    <div class="current-hand" *ngIf="game.players && game.players.length > 0">
       <app-player-hand
         *ngFor="let player of game.players"
         (select)="onCardSelect($event)"
@@ -35,7 +35,8 @@
     <div class="footer">
       <ion-button (click)="onCalc()" *ngIf="isHost">Calc</ion-button>
       <ion-button (click)="onNext()" *ngIf="isHost">Next</ion-button>
-      <ion-button (click)="getSocketState()" *ngIf="isHost">showState</ion-button>
+      <ion-button (click)="getSocketState()" *ngIf="isHost">State</ion-button>
     </div>
   </div>
+  <app-spinner *ngIf="isLoading"></app-spinner>
 </ion-content>
