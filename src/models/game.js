@@ -9,7 +9,7 @@ const gameSchema = new Schema({
   status: String,
   players: [{
     name: String,
-    hand: [{
+    hand: {
       isDone: Boolean,
       isScoop: Boolean,
       nextIsFantasy: Boolean,
@@ -40,7 +40,7 @@ const gameSchema = new Schema({
           total: Number
         }
       },
-    }]
+    }
   }],
   history: [ObjectId],
   stats: [{
