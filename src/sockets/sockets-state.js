@@ -45,6 +45,12 @@ class SocketsState {
     app.sockets.emitNewGameHosted(newGame._id)
   }
 
+  removeGame(gameId) {
+    delete this.games[gameId]
+    const app = appGetter()
+    app.sockets.emitGameDeleted(gameId)
+  }
+
   updateHand(updateHandData) {
     const { gameId, playerName, hand } = updateHandData
     const game = this.games[gameId]

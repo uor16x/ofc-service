@@ -4,4 +4,17 @@
   margin-bottom: 8px;
   border-radius: 6px;
   width: 100%;
+  position: relative;
+
+  .delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    ion-button {
+      width: 50px;
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
 }

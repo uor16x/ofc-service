@@ -255,7 +255,10 @@ export class GamePage implements OnInit {
     console.log(statePrettified);
   }
 
-  onCalc() {}
+  onCalc() {
+    this.gameService.calcGame(this.game)
+      .subscribe((response) => console.log("response: ", response));
+  }
 
   onNext() {}
 }

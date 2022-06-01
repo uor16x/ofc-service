@@ -35,5 +35,9 @@ export class AppComponent implements OnInit {
       this.gameService.getAllGames();
       this.toastService.showGameHostedToast(newGame.hostName);
     });
+    this.socketService.gameDeleted$.subscribe((deletedGameId) => {
+      this.gameService.getAllGames();
+      // this.toastService.showGameHostedToast(newGame.hostName);
+    });
   }
 }

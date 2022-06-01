@@ -82,7 +82,11 @@ module.exports = {
           .status(StatusCodes.BAD_REQUEST)
           .send(new Error(`Game with id: ${id} not found`))
       }
-      return `Game ${id} was deleted successfully`
+      const state = await socketState()
+      state.removeGame(id)
+      return {
+        result: `Game ${id} was deleted successfully`
+      }
     } catch (err) {
       errHandler(
         reply,

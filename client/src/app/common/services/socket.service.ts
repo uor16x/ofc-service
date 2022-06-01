@@ -10,6 +10,7 @@ import { Game, Hand } from '../models';
 export class SocketService {
   currentGame$ = new BehaviorSubject(null);
   newGameHosted$ = new Subject<Game>();
+  gameDeleted$ = new Subject<string>();
   socketState$ = new Subject();
 
   constructor(
@@ -23,6 +24,9 @@ export class SocketService {
     });
     this.socket.on('game-hosted', (newGame) => {
       this.newGameHosted$.next(newGame)
+    });
+    this.socket.on('game-deleted', (deletedGameId) => {
+      this.gameDeleted$.next(deletedGameId)
     });
     this.socket.on('socketState', (state) => {
       this.socketState$.next(state);
