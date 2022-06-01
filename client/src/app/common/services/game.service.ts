@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Game } from '../models';
 import { CreateGameDto } from '../dtos';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +34,22 @@ export class GameService {
 
   hostGame(gameData: CreateGameDto) {
     return this.httpClient.post(environment.api.game.create, gameData);
+  }
+
+  deleteGame(gameId) {
+    this.httpClient.delete(environment.api.game.delete(gameId)).subscribe();
+  }
+
+  calcGame(game: Game): Observable<any> {
+    const body = game.players.map((player) => ({
+      username: player.name,
+      withFantasy: false,
+      cards: [].concat(
+        player.hand.top.cards,
+        player.hand.middle.cards,
+        player.hand.bottom.cards
+      ),
+    }));
+    return this.httpClient.post(environment.api.calc, body);
   }
 }

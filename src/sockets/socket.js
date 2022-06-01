@@ -12,7 +12,7 @@ module.exports = async () => {
 
   const state = await socketState()
 
-  const emitUpdatedGame = (gameId) => {
+  const emitGameUpdated = (gameId) => {
     const game = state.getGame(gameId)
     app.io.to(gameId).emit('game-update', game)
   }
@@ -22,9 +22,14 @@ module.exports = async () => {
     app.io.emit('game-hosted', game)
   }
 
+  const emitGameDeleted = (gameId) => {
+    app.io.emit('game-deleted', gameId)
+  }
+
   app.sockets = {
-    emitUpdatedGame,
-    emitNewGameHosted
+    emitGameUpdated,
+    emitNewGameHosted,
+    emitGameDeleted
   }
 
   app.ready(async err => {
@@ -41,13 +46,13 @@ module.exports = async () => {
         app.log.info(`Received joinGame: ${JSON.stringify(joinData, null, 2)}`)
         await state.joinPlayer(joinData.gameId, joinData.playerName)
         socket.join(joinData.gameId)
-        emitUpdatedGame(joinData.gameId)
+        emitGameUpdated(joinData.gameId)
       })
 
       socket.on('updateHand', async updateHandData => {
         app.log.info(`Received updateHand: ${JSON.stringify(updateHandData, null, 2)}`)
         state.updateHand(updateHandData)
-        emitUpdatedGame(updateHandData.gameId)
+        emitGameUpdated(updateHandData.gameId)
       })
 
       // for debugging

@@ -9,7 +9,38 @@ const gameSchema = new Schema({
   status: String,
   players: [{
     name: String,
-    hand: [{ type: Schema.Types.ObjectId, ref: 'Hand' }]
+    hand: [{
+      isDone: Boolean,
+      isScoop: Boolean,
+      nextIsFantasy: Boolean,
+      top: {
+        combination: String,
+        cards: [String],
+        stats: {
+          bonus: Number,
+          line: Number,
+          total: Number
+        }
+      },
+      middle: {
+        combination: String,
+        cards: [String],
+        stats: {
+          bonus: Number,
+          line: Number,
+          total: Number
+        }
+      },
+      bottom: {
+        combination: String,
+        cards: [String],
+        stats: {
+          bonus: Number,
+          line: Number,
+          total: Number
+        }
+      },
+    }]
   }],
   history: [ObjectId],
   stats: [{
