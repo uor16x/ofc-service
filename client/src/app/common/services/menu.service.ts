@@ -5,4 +5,5 @@ import { Injectable } from '@angular/core';
 })
 export class MenuService {
   isVisible = false;
+  currentGameId;
 }

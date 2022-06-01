@@ -1,7 +1,7 @@
 const socketState = require('./sockets-state')
 
-module.exports = () => {
-  const app = require('./app')()
+module.exports = async () => {
+  const app = require('../app')()
 
   app.register(require('fastify-socket.io'), {
     cors: {
@@ -9,20 +9,31 @@ module.exports = () => {
       methods: ['GET', 'POST']
     }
   })
+
+  const state = await socketState()
+
+  const emitUpdatedGame = (gameId) => {
+    const game = state.getGame(gameId)
+    app.io.to(gameId).emit('game-update', game)
+  }
+
+  const emitNewGameHosted = (gameId) => {
+    const game = state.getGame(gameId)
+    app.io.emit('game-hosted', game)
+  }
+
+  app.sockets = {
+    emitUpdatedGame,
+    emitNewGameHosted
+  }
+
   app.ready(async err => {
     if (err) {
       return app.fatalErr(err)
     }
 
-    const state = await socketState()
-
     app.io.on('connect', socket => {
       app.log.info(`Socket connected: ${socket.id}`)
-
-      const emitUpdatedGame = async (gameId) => {
-        const game = await state.getGame(gameId)
-        app.io.to(gameId).emit('game-update', game)
-      }
 
       socket.on('disconnect', () => app.log.info(`Socket disconnected: ${socket.id}`))
 
@@ -45,4 +56,5 @@ module.exports = () => {
       })
     })
   })
+
 }

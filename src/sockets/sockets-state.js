@@ -1,4 +1,5 @@
-const appGetter = require('./app')
+const appGetter = require('../app')
+let state
 
 class SocketsState {
   // object which holds all active (OPEN) games by id keys:
@@ -10,35 +11,23 @@ class SocketsState {
   // getting all active ('OPEN') games from db and storing them in state in memory
   async init() {
     const app = appGetter()
-    const allGames = await app.db.Game.find({ status: 'OPEN' })
+    const allGames = await app.db.Game.find({ status: 'OPEN' }).lean()
     allGames.forEach(game => (this.games[game._id] = game))
   }
 
-  async addGame(gameId) {
-    const app = appGetter()
-    const newGame = await app.db.Game.findById(gameId)
-    if (!newGame) {
-      //TODO send custom error message
-    }
-    this.games[gameId] = newGame
-    return newGame
-  }
-
   async joinPlayer(gameId, playerName) {
-    const game = await this.getGame(gameId)
-
+    const game = this.getGame(gameId)
     // player already in the game
     if (game.players && game.players.find(player => player.name === playerName)) {
       return
     }
-
     // game is full
     if (game.players && game.players.length === 3) {
       //TODO send game full error message
     }
-
     // add player to the game
-    game.players.push(this.#getEmptyHandPlayer(playerName))
+    const emptyHand = this.#getEmptyHandPlayer(playerName)
+    game.players.push(emptyHand)
     game.stats.push({
       player: playerName,
       stat: 0
@@ -46,8 +35,14 @@ class SocketsState {
     await this.#updateGameInDb(game)
   }
 
-  async getGame(gameId) {
-    return this.games[gameId] || await this.addGame(gameId)
+  getGame(gameId) {
+    return this.games[gameId]
+  }
+
+  addGame(newGame) {
+    this.games[newGame._id] = newGame
+    const app = appGetter()
+    app.sockets.emitNewGameHosted(newGame._id)
   }
 
   updateHand(updateHandData) {
@@ -113,7 +108,9 @@ class SocketsState {
 }
 
 module.exports = async () => {
-  const state = new SocketsState()
-  await state.init()
+  if (!state) {
+    state = new SocketsState()
+    await state.init()
+  }
   return state
 }

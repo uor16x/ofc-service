@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LobbyPage implements OnInit {
   games: Game[];
+  isLoading = true;
 
   constructor(
     private readonly gameService: GameService,
@@ -20,7 +21,10 @@ export class LobbyPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.gameService.games.subscribe((games) => (this.games = games));
+    this.gameService.games.subscribe((games) => {
+      this.games = games;
+      this.isLoading = false;
+    });
   }
 
   ionViewWillEnter() {

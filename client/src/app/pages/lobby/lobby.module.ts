@@ -9,6 +9,7 @@ import { LobbyPageRoutingModule } from './lobby-routing.module';
 import { LobbyPage } from './lobby.page';
 import { GameItemComponent } from './game/game/game-item.component';
 import { HostModalComponent } from './host-modal/host-modal.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { HostModalComponent } from './host-modal/host-modal.component';
     IonicModule,
     LobbyPageRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   declarations: [LobbyPage, GameItemComponent, HostModalComponent],
 })

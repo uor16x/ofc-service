@@ -9,16 +9,18 @@
       <div class="menu-container">
         <ion-menu-toggle>
           <ion-list>
-            <ion-item [routerLink]="['/game']">{{
-              "menu.game" | translate
-            }}</ion-item>
+            <ion-item
+              [routerLink]="['/game/' + menuService.currentGameId]"
+              [disabled]="!menuService.currentGameId"
+              >{{ "menu.game" | translate }}</ion-item
+            >
             <ion-item [routerLink]="['/lobby']">{{
               "menu.lobby" | translate
             }}</ion-item>
-            <ion-item [routerLink]="['/history']">{{
+            <ion-item [routerLink]="['/history']" disabled="true">{{
               "menu.history" | translate
             }}</ion-item>
-            <ion-item [routerLink]="['/logs']">{{
+            <ion-item [routerLink]="['/logs']" disabled="true">{{
               "menu.logs" | translate
             }}</ion-item>
             <ion-item [routerLink]="['/settings']" class="settings">{{
