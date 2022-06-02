@@ -28,7 +28,7 @@ class SocketsState {
       //TODO send game full error message
     }
     // add player to the game
-    const emptyHand = this.#getEmptyHandPlayer(playerName)
+    const emptyHand = this.getEmptyHandPlayer(playerName)
     game.players.push(emptyHand)
     game.stats.push({
       player: playerName,
@@ -88,7 +88,7 @@ class SocketsState {
         return playerCalcBody
       })
       const calcResults = await calculate(calcBody)
-      this.#setCalcResults(calcResults, game)
+      this.setCalcResults(calcResults, game)
     } catch (e) {
       app.log.error(e)
       //TODO throw custom socket error
@@ -118,7 +118,7 @@ class SocketsState {
           isScoop: false,
           nextIsFantasy: false,
           extraLineBonuses: 0,
-          ...this.#getEmptyHand()
+          ...this.getEmptyHand()
         }
       })
       await this.updateGameInDb(game)
@@ -128,7 +128,7 @@ class SocketsState {
     }
   }
 
-  #getEmptyHand() {
+  getEmptyHand() {
     return {
       top: {
         combination: null,
@@ -160,7 +160,7 @@ class SocketsState {
     }
   }
 
-  #getEmptyHandPlayer(playerName) {
+  getEmptyHandPlayer(playerName) {
     return {
       name: playerName,
       hand: {
@@ -168,7 +168,7 @@ class SocketsState {
         isScoop: false,
         nextIsFantasy: false,
         extraLineBonuses: 0,
-        ...this.#getEmptyHand()
+        ...this.getEmptyHand()
       }
     }
   }
@@ -183,7 +183,7 @@ class SocketsState {
     }
   }
 
-  #setCalcResults(calcResults, game) {
+  setCalcResults(calcResults, game) {
     game.players.forEach(player => {
       const playerCalcRes = calcResults.find(
         (result) => result.player.username === player.name
