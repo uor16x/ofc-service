@@ -8,9 +8,23 @@
   },
   "pages": {
     "settings": {
+      "pageTitle": "Настройки",
       "language": {
         "title": "Мова"
       }
+    },
+    "lobby": {
+      "pageTitle": "Лоббі",
+      "hostGame": {
+        "name": "Назва",
+        "stake": "Куш",
+        "back": "Назад",
+        "host": "Хостанути"
+      }
+    },
+    "game": {
+      "clearHand": "Очистити руку",
+      "scoop": "Скуп"
     }
   }
 }
