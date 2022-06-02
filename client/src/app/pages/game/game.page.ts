@@ -28,6 +28,7 @@ export class GamePage implements OnInit {
   isNextEnabled = false;
   hero: Player;
   isLoading = true;
+  isStatError = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -50,6 +51,7 @@ export class GamePage implements OnInit {
         this.game = updatedGame;
         this._sortPlayers();
         console.log(this.game);
+        this.checkStatError();
         this.isHost = this.game.hostName === this.username;
         this.isLoading = false;
       });
@@ -187,6 +189,12 @@ export class GamePage implements OnInit {
         },
       },
     };
+  }
+
+  private checkStatError() {
+    let sum = 0;
+    this.game.stats.forEach(stat => sum += stat.stat);
+    this.isStatError = sum !== 0;
   }
 
   onCardSelect(event) {
