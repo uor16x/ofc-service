@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Set nickname</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="page-wrapper">
+    <div class="set-nick">
+      <ion-item>
+        <ion-label position="floating">Nick</ion-label>
+        <ion-input [formControl]="nicknameControl"></ion-input>
+      </ion-item>
+      <ion-button [disabled]="nicknameControl.invalid" (click)="setNickname()"
+        >OK</ion-button
+      >
+    </div>
+  </div>
+</ion-content>

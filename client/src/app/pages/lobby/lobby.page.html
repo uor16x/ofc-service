@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "pages.lobby.pageTitle" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper" *ngIf="!isLoading">
+    <div class="games-list-wrapper">
+      <app-game-item
+        *ngFor="let game of games"
+        [game]="game"
+        (click)="openGame(game)"
+      ></app-game-item>
+    </div>
+    <ion-button id="hostButton" (click)="onHostGame()">
+      {{ "pages.lobby.hostGame.host" | translate }}
+    </ion-button>
+  </div>
+  <app-spinner *ngIf="isLoading"></app-spinner>
+</ion-content>

@@ -1,0 +1,30 @@
+{
+  "menu": {
+    "game": "Поточна Гра",
+    "lobby": "Лоббі",
+    "history": "Історія Ігор",
+    "logs": "Логи",
+    "settings": "Настройки"
+  },
+  "pages": {
+    "settings": {
+      "pageTitle": "Настройки",
+      "language": {
+        "title": "Мова"
+      }
+    },
+    "lobby": {
+      "pageTitle": "Лоббі",
+      "hostGame": {
+        "name": "Назва",
+        "stake": "Куш",
+        "back": "Назад",
+        "host": "Хостанути"
+      }
+    },
+    "game": {
+      "clearHand": "Очистити руку",
+      "scoop": "Скуп"
+    }
+  }
+}

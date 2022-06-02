@@ -1,0 +1,30 @@
+{
+  "menu": {
+    "game": "Current Game",
+    "lobby": "Lobby",
+    "history": "Game History",
+    "logs": "Logs",
+    "settings": "Settings"
+  },
+  "pages": {
+    "settings": {
+      "pageTitle": "Settings",
+      "language": {
+        "title": "Language"
+      }
+    },
+    "lobby": {
+      "pageTitle": "Lobby",
+      "hostGame": {
+        "name": "Name",
+        "stake": "Stake",
+        "back": "Back",
+        "host": "Host"
+      }
+    },
+    "game": {
+      "clearHand": "Clear Hand",
+      "scoop": "Scoop"
+    }
+  }
+}

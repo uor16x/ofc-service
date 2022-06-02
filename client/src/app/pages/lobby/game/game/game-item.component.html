@@ -1,0 +1,14 @@
+<div class="game-item-container">
+  <div class="row">host: {{ game.hostName }}</div>
+  <div class="row">name: {{ game.name }}</div>
+  <div class="row">stake: {{ game.stake }}</div>
+  <div class="row">status: {{ game.status }}</div>
+  <div class="row">
+    created: {{ game.creationTime | date: "EEEE, MMMM d, h:mm:ss" }}
+  </div>
+  <div class="delete-button">
+    <ion-button (click)="deleteGame($event)" fill="clear">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-button>
+  </div>
+</div>

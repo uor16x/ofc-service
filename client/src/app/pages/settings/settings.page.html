@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "pages.settings.pageTitle" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="page-wrapper">
+    <div class="language">
+      <div class="title">{{ "pages.settings.language.title" | translate }}</div>
+      <ion-segment
+        (ionChange)="segmentChanged($event)"
+        [value]="currentLanguage"
+        mode="ios"
+      >
+        <ion-segment-button value="en">
+          <ion-label>English</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="ua">
+          <ion-label>Українська</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div>v1.0</div>
+  </div>
+</ion-content>
