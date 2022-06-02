@@ -48,6 +48,14 @@ export class SocketService {
     });
   }
 
+  calc(gameId: string) {
+    this.socket.emit('calc', { gameId })
+  }
+
+  next(gameId: string) {
+    this.socket.emit('next', { gameId })
+  }
+
   showState() {
     this.socket.emit('showCurrentState');
   }

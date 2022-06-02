@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../common/services';
 
 @Component({
   selector: 'app-settings',
@@ -9,7 +10,10 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsPage implements OnInit {
   currentLanguage: string;
 
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private readonly translate: TranslateService,
+    private readonly userService: UserService
+  ) {}
 
   ngOnInit() {
     this.currentLanguage =
@@ -18,5 +22,7 @@ export class SettingsPage implements OnInit {
 
   segmentChanged(event) {
     this.translate.use(event.detail.value);
+    this.userService.settings.language = event.detail.value;
+    window.location.reload();
   }
 }

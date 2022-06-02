@@ -52,6 +52,7 @@ const gameResponseJsonSchema = {
               isDone: { type: 'boolean' },
               isScoop: { type: 'boolean' },
               nextIsFantasy: { type: 'boolean' },
+              extraLineBonuses: { type: 'number' },
               top: handRowJsonSchema,
               middle: handRowJsonSchema,
               bottom: handRowJsonSchema

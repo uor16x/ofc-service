@@ -31,10 +31,18 @@
             top.combination as combo
           "
         >
-          {{ combo }}
+          {{ combo | combination }}
         </div>
       </div>
       <div class="stats-block">
+        <div *ngIf="player.hand.extraLineBonuses > 0">
+          <div class="extra-line-bonuses left">+3</div>
+          <div class="extra-line-bonuses right" *ngIf="player.hand.extraLineBonuses > 3">+3</div>
+        </div>
+        <div *ngIf="player.hand.extraLineBonuses < 0">
+          <div class="extra-line-bonuses left">-3</div>
+          <div class="extra-line-bonuses right" *ngIf="player.hand.extraLineBonuses < -3">-3</div>
+        </div>
         <div class="stat">
           <div class="detailed centered">
             <div>{{ top.stats.line | stat }}</div>
@@ -71,7 +79,7 @@
             middle.combination as combo
           "
         >
-          {{ combo }}
+          {{ combo | combination }}
         </div>
       </div>
       <div class="stats-block">
@@ -111,7 +119,7 @@
             bottom.combination as combo
           "
         >
-          {{ combo }}
+          {{ combo | combination }}
         </div>
       </div>
       <div class="stats-block">

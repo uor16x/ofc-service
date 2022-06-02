@@ -1,9 +1,3 @@
-<!--<ion-header>-->
-<!--  <ion-toolbar>-->
-<!--    <ion-title>game</ion-title>-->
-<!--  </ion-toolbar>-->
-<!--</ion-header>-->
-
 <ion-content>
   <div class="content-wrapper" *ngIf="!isLoading">
     <div class="stats">
@@ -12,7 +6,7 @@
         <div>{{stat.stat | stat}}</div>
       </div>
     </div>
-
+    <div class="stat-error" *ngIf="isStatError">Курва, непрально!</div>
     <div class="current-hand" *ngIf="game.players && game.players.length > 0">
       <app-player-hand
         *ngFor="let player of game.players"

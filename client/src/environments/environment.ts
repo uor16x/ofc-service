@@ -14,8 +14,7 @@ export const environment = {
       update: (id: string) => `${apiBaseUrl}/game/${id}`,
       delete: (id: string) => `${apiBaseUrl}/game/${id}`,
       getAll: `${apiBaseUrl}/game`,
-    },
-    calc: `${apiBaseUrl}/calc`
+    }
   }
 };
 

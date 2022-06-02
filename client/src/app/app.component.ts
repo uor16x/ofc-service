@@ -6,6 +6,7 @@ import {
   MenuService,
   SocketService,
   ToastService,
+  UserService,
 } from './common/services';
 
 @Component({
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
     public readonly menuService: MenuService,
     private readonly socketService: SocketService,
     private readonly gameService: GameService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -30,12 +32,22 @@ export class AppComponent implements OnInit {
       this.storage.set('lang', langChangeEvent.lang);
     });
     this.translate.use(storedLanguage || this.translate.defaultLang);
+    this.userService.settings.language =
+      storedLanguage || this.translate.defaultLang;
+    this.menuService.init();
+    this.initSockets();
+  }
+
+  initSockets() {
     this.socketService.listenMessages();
     this.socketService.newGameHosted$.subscribe((newGame) => {
       this.gameService.getAllGames();
       this.toastService.showGameHostedToast(newGame.hostName);
     });
     this.socketService.gameDeleted$.subscribe((deletedGameId) => {
+      if (deletedGameId === this.menuService.currentGameId) {
+        this.menuService.removeCurrentGameId();
+      }
       this.gameService.getAllGames();
       // this.toastService.showGameHostedToast(newGame.hostName);
     });
