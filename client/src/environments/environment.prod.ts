@@ -7,7 +7,7 @@ export const apiBaseUrl = 'http://185.4.75.206:8080';
 
 
 export const environment = {
-  production: false,
+  production: true,
   apikey: '',
   api: {
     game: {
