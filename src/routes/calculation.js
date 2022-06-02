@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes')
 const { calc } = require('../controllers/calculation')
 
 const combinationSchema = { 
-  type: 'object',
+  type: ['object', 'null'],
   properties: {
     name: { type: 'string' },
     part1: {
@@ -66,7 +66,6 @@ module.exports = () => {
             withFantasy: { type: 'boolean' },
             cards: {
               type: 'array',
-              minItems: 13,
               maxItems: 13,
               items: {
                 type: 'string',
