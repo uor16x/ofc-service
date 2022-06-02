@@ -23,6 +23,5 @@ export class SettingsPage implements OnInit {
   segmentChanged(event) {
     this.translate.use(event.detail.value);
     this.userService.settings.language = event.detail.value;
-    window.location.reload();
   }
 }
