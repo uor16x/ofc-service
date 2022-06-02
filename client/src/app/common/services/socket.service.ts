@@ -52,6 +52,10 @@ export class SocketService {
     this.socket.emit('calc', { gameId })
   }
 
+  next(gameId: string) {
+    this.socket.emit('next', { gameId })
+  }
+
   showState() {
     this.socket.emit('showCurrentState');
   }

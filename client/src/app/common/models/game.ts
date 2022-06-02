@@ -24,6 +24,7 @@ export interface Hand {
   isDone: boolean;
   isScoop: boolean;
   nextIsFantasy: boolean;
+  extraLineBonuses: number;
   top: HandRow;
   middle: HandRow;
   bottom: HandRow;
@@ -38,4 +39,3 @@ export interface HandRow {
     total: number;
   }
 }
-

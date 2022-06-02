@@ -55,6 +55,18 @@ module.exports = async () => {
         emitGameUpdated(updateHandData.gameId)
       })
 
+      socket.on('calc', async calcHandData => {
+        app.log.info(`Received calc for game: ${calcHandData.gameId}`)
+        await state.calcGame(calcHandData.gameId)
+        emitGameUpdated(calcHandData.gameId)
+      })
+
+      socket.on('next', async nextHandData => {
+        app.log.info(`Received next for game: ${nextHandData.gameId}`)
+        await state.nextGame(nextHandData.gameId)
+        emitGameUpdated(nextHandData.gameId)
+      })
+
       // for debugging
       socket.on('showCurrentState', () => {
         socket.emit('socketState', state)

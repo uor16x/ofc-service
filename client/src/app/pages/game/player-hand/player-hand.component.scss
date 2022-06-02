@@ -74,6 +74,7 @@
 
       .stats-block{
         width: 75px;
+        position: relative;
 
         .stat {
           display: flex;
@@ -99,6 +100,22 @@
           .total {
             font-weight: bold;
           }
+        }
+
+        .extra-line-bonuses {
+          position: absolute;
+          top: -10px;
+          border: 1px solid white;
+          padding: 2px 5px;
+          border-radius: 50%;
+        }
+
+        .left {
+          left: -13px;
+        }
+
+        .right {
+          left: 21px;
         }
       }
     }

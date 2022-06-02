@@ -158,6 +158,7 @@ export class GamePage implements OnInit {
       isDone: false,
       isScoop: false,
       nextIsFantasy: false,
+      extraLineBonuses: 0,
       top: {
         combination: null,
         cards: ['', '', ''],
@@ -252,13 +253,15 @@ export class GamePage implements OnInit {
   }
 
   displaySocketState(state) {
-    const statePrettified = JSON.stringify(state, null, 2);
-    console.log(statePrettified);
+    // const statePrettified = JSON.stringify(state, null, 2);
+    console.log(state);
   }
 
   onCalc() {
     this.socketService.calc(this.game._id);
   }
 
-  onNext() {}
+  onNext() {
+    this.socketService.next(this.game._id);
+  }
 }

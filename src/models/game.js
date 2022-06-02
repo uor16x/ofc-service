@@ -13,6 +13,7 @@ const gameSchema = new Schema({
       isDone: Boolean,
       isScoop: Boolean,
       nextIsFantasy: Boolean,
+      extraLineBonuses: Number,
       top: {
         combination: String,
         cards: [String],

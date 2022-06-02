@@ -1,4 +1,6 @@
 const appGetter = require('../app')
+const calculate = require('./../services/calc')
+
 let state
 
 class SocketsState {
@@ -32,7 +34,7 @@ class SocketsState {
       player: playerName,
       stat: 0
     })
-    await this.#updateGameInDb(game)
+    await this.updateGameInDb(game)
   }
 
   getGame(gameId) {
@@ -56,6 +58,63 @@ class SocketsState {
     const game = this.games[gameId]
     const player = game.players.find(player => player.name === playerName)
     player.hand = hand
+  }
+
+  async calcGame(gameId) {
+    const app = appGetter()
+    const game = this.getGame(gameId)
+    if (!game) {
+      //TODO throw custom socket error
+    }
+    try {
+      const calcBody = game.players.map((player) => ({
+        username: player.name,
+        withFantasy: false,
+        cards: [].concat(
+          player.hand.top.cards,
+          player.hand.middle.cards,
+          player.hand.bottom.cards
+        ),
+      }))
+      const calcResults = await calculate(calcBody)
+      this.#setCalcResults(calcResults, game)
+    } catch (e) {
+      app.log.error(e)
+      //TODO throw custom socket error
+    }
+  }
+
+  async nextGame(gameId) {
+    const app = appGetter()
+    const game = this.getGame(gameId)
+    if (!game) {
+      //TODO throw custom socket error
+    }
+    try {
+      game.players.forEach(player => {
+        const gamePlayerStats = game.stats.find(stat => stat.player === player.name)
+        if (!gamePlayerStats) {
+          throw Error(`Game stat not found for player: ${player.name}`)
+        }
+        const playerHandTotal = 
+          player.hand.top.stats.total + 
+          player.hand.middle.stats.total + 
+          player.hand.bottom.stats.total +
+          player.hand.extraLineBonuses
+        gamePlayerStats.stat += playerHandTotal
+        player.hand = {
+          isDone: false,
+          isScoop: false,
+          nextIsFantasy: false,
+          extraLineBonuses: 0,
+          ...this.#getEmptyHand()
+        }
+      })
+      await this.updateGameInDb(game)
+    } catch (e) {
+      app.log.error(e)
+      //TODO throw custom socket error
+    }
   }
 
   #getEmptyHand() {
@@ -97,12 +156,13 @@ class SocketsState {
         isDone: false,
         isScoop: false,
         nextIsFantasy: false,
+        extraLineBonuses: 0,
         ...this.#getEmptyHand()
       }
     }
   }
 
-  async #updateGameInDb(game) {
+  async updateGameInDb(game) {
     const app = appGetter()
     try {
       await app.db.Game.findByIdAndUpdate(game._id,{ ...game })
@@ -110,6 +170,37 @@ class SocketsState {
       app.log.error(e)
       //TODO send custom error message
     }
+  }
+
+  #setCalcResults(calcResults, game) {
+    game.players.forEach(player => {
+      const playerCalcRes = calcResults.find(
+        (result) => result.player.username === player.name
+      )
+      if (!playerCalcRes) {
+        throw Error(`No calculation result found for player: ${player.name}`)
+      }
+      const setLineStats = (line) => {
+        player.hand[line].combination = playerCalcRes[line].combination.name
+        player.hand[line].stats = {
+          bonus: playerCalcRes[line].totalCombination,
+          line: playerCalcRes[line].totalBonus,
+          total: playerCalcRes[line].totalCombination + playerCalcRes[line].totalBonus
+        }
+      }
+      setLineStats('top')
+      setLineStats('middle')
+      setLineStats('bottom')
+
+      // super kostyl for extra line bonuses calc
+      player.hand.extraLineBonuses = 0
+      if (Math.abs(playerCalcRes.totalDetailed[1][0][2]) === 6) {
+        player.hand.extraLineBonuses += playerCalcRes.totalDetailed[1][0][2] / 2
+      }
+      if (Math.abs(playerCalcRes.totalDetailed[1][1][2]) === 6) {
+        player.hand.extraLineBonuses += playerCalcRes.totalDetailed[1][1][2] / 2
+      }
+    })
   }
 }
 

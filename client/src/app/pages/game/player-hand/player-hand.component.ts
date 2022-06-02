@@ -25,7 +25,8 @@ export class PlayerHandComponent implements OnInit {
       this.roundTotal =
         this.player.hand.top.stats.total +
         this.player.hand.middle.stats.total +
-        this.player.hand.bottom.stats.total;
+        this.player.hand.bottom.stats.total +
+        this.player.hand.extraLineBonuses;
     }
   }
 
