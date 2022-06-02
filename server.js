@@ -16,7 +16,7 @@ async function start() {
   try {
     await db()
     await socket()
-    await app.listen(process.env.PORT)
+    await app.listen(process.env.PORT, '0.0.0.0')
   } catch (err) {
     app.fatalErr(err)
   }
