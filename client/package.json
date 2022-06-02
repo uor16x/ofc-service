@@ -21,6 +21,8 @@
     "@ngneat/until-destroy": "^9.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "ang-jsoneditor": "^1.10.5",
+    "jsoneditor": "^9.8.0",
     "ngx-socket-io": "^4.2.0",
     "prettier": "^2.6.2",
     "rxjs": "^7.5.5",

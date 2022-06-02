@@ -60,6 +60,11 @@ class SocketsState {
     player.hand = hand
   }
 
+  updateGame(updatedGame) {
+    this.games[updatedGame._id] = updatedGame
+    return this.games[updatedGame._id]
+  }
+
   async calcGame(gameId) {
     const app = appGetter()
     const game = this.getGame(gameId)

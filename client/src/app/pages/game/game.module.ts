@@ -10,6 +10,8 @@ import { GamePage } from './game.page';
 import { CardsPickerComponent } from './cards-picker/cards-picker.component';
 import { SharedModule } from '../../shared/shared.module';
 import { PlayerHandComponent } from './player-hand/player-hand.component';
+import { GameStateComponent } from './game-state/game-state.component';
+import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 @NgModule({
   imports: [
@@ -18,7 +20,13 @@ import { PlayerHandComponent } from './player-hand/player-hand.component';
     IonicModule,
     GamePageRoutingModule,
     SharedModule,
+    NgJsonEditorModule,
   ],
-  declarations: [GamePage, CardsPickerComponent, PlayerHandComponent],
+  declarations: [
+    GamePage,
+    CardsPickerComponent,
+    PlayerHandComponent,
+    GameStateComponent,
+  ],
 })
 export class GamePageModule {}

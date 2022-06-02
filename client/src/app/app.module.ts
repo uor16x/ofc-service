@@ -15,6 +15,7 @@ import { MainModule } from './modules/main.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { apiBaseUrl } from '../environments/environment';
+import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,6 +44,7 @@ const socketConfig: SocketIoConfig = { url: apiBaseUrl, options: {} };
     MainModule,
     BrowserAnimationsModule,
     SocketIoModule.forRoot(socketConfig),
+    NgJsonEditorModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

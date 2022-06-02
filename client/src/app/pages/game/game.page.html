@@ -29,7 +29,7 @@
     <div class="footer">
       <ion-button (click)="onCalc()" *ngIf="isHost">Calc</ion-button>
       <ion-button (click)="onNext()" *ngIf="isHost">Next</ion-button>
-      <ion-button (click)="getSocketState()" *ngIf="isHost">State</ion-button>
+      <ion-button (click)="openGameStateModal()" *ngIf="isHost">State</ion-button>
     </div>
   </div>
   <app-spinner *ngIf="isLoading"></app-spinner>
