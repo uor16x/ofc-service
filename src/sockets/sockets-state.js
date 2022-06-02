@@ -67,15 +67,21 @@ class SocketsState {
       //TODO throw custom socket error
     }
     try {
-      const calcBody = game.players.map((player) => ({
-        username: player.name,
-        withFantasy: false,
-        cards: [].concat(
-          player.hand.top.cards,
-          player.hand.middle.cards,
-          player.hand.bottom.cards
-        ),
-      }))
+      const calcBody = game.players.map((player) => {
+        const playerCalcBody = {
+          username: player.name,
+          withFantasy: false,
+          cards: [].concat(
+            player.hand.top.cards,
+            player.hand.middle.cards,
+            player.hand.bottom.cards
+          ),
+        }
+        if (playerCalcBody.cards.includes('')) {
+          playerCalcBody.cards = []
+        }
+        return playerCalcBody
+      })
       const calcResults = await calculate(calcBody)
       this.#setCalcResults(calcResults, game)
     } catch (e) {
@@ -181,7 +187,11 @@ class SocketsState {
         throw Error(`No calculation result found for player: ${player.name}`)
       }
       const setLineStats = (line) => {
-        player.hand[line].combination = playerCalcRes[line].combination.name
+        if (!playerCalcRes.player.scoop) {
+          player.hand[line].combination = playerCalcRes[line].combination.name
+        } else {
+          player.hand.isScoop = true
+        }
         player.hand[line].stats = {
           bonus: playerCalcRes[line].totalCombination,
           line: playerCalcRes[line].totalBonus,
