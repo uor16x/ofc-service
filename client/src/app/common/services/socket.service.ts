@@ -48,6 +48,13 @@ export class SocketService {
     });
   }
 
+  async updateGame(game) {
+    this.socket.emit('updateGame', {
+      game: game,
+      playerName: await this.userService.getNickname(),
+    });
+  }
+
   calc(gameId: string) {
     this.socket.emit('calc', { gameId })
   }

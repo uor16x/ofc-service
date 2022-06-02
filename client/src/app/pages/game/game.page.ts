@@ -9,6 +9,8 @@ import {
 } from '../../common/services';
 import { filter, Subject } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ModalController } from '@ionic/angular';
+import { GameStateComponent } from './game-state/game-state.component';
 
 @UntilDestroy()
 @Component({
@@ -36,6 +38,7 @@ export class GamePage implements OnInit {
     private readonly socketService: SocketService,
     private readonly userService: UserService,
     private readonly menuService: MenuService,
+    private readonly modalController: ModalController
   ) {}
 
   async ngOnInit() {
@@ -193,7 +196,7 @@ export class GamePage implements OnInit {
 
   private checkStatError() {
     let sum = 0;
-    this.game.stats.forEach(stat => sum += stat.stat);
+    this.game.stats.forEach((stat) => (sum += stat.stat));
     this.isStatError = sum !== 0;
   }
 
@@ -256,8 +259,14 @@ export class GamePage implements OnInit {
     this._updateHand();
   }
 
-  getSocketState() {
-    this.socketService.showState();
+  async openGameStateModal() {
+    const modal = await this.modalController.create({
+      component: <any>GameStateComponent,
+      componentProps: {
+        game: this.game,
+      }
+    });
+    return await modal.present();
   }
 
   displaySocketState(state) {

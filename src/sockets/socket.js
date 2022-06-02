@@ -55,6 +55,12 @@ module.exports = async () => {
         emitGameUpdated(updateHandData.gameId)
       })
 
+      socket.on('updateGame', async updateGameData => {
+        app.log.info(`Received updateGame: ${JSON.stringify(updateGameData, null, 2)}`)
+        const game = state.updateGame(updateGameData.game)
+        emitGameUpdated(game._id)
+      })
+
       socket.on('calc', async calcHandData => {
         app.log.info(`Received calc for game: ${calcHandData.gameId}`)
         await state.calcGame(calcHandData.gameId)
