@@ -2,11 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const apiBaseUrl = 'http://localhost:3333';
+// export const apiBaseUrl = 'http://localhost:3333';
+export const apiBaseUrl = 'http://185.4.75.206:8080';
+
 
 export const environment = {
   production: false,
-  apikey: '696f2386-5b97-4a61-8720-cd248645b5ce',
+  apikey: '',
   api: {
     game: {
       create: `${apiBaseUrl}/game`,
