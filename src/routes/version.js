@@ -8,7 +8,7 @@ module.exports = () => {
 
   app.route({
     method: 'GET',
-    url: '/mobile-app-latest-version',
+    url: '/version',
     schema: {
       response: {
         [StatusCodes.OK]: {
