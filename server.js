@@ -16,6 +16,7 @@ async function start() {
   try {
     await db()
     await socket()
+    app.config = require('./src/config.json')
     await app.listen(process.env.PORT, '0.0.0.0')
   } catch (err) {
     app.fatalErr(err)
