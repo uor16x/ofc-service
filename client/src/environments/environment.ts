@@ -16,8 +16,12 @@ export const environment = {
       update: (id: string) => `${apiBaseUrl}/game/${id}`,
       delete: (id: string) => `${apiBaseUrl}/game/${id}`,
       getAll: `${apiBaseUrl}/game`,
-    }
-  }
+    },
+    version: `${apiBaseUrl}/version`,
+  },
+  version: '1.1.0',
+  latestApkLink: (latestVersion) =>
+    `https://github.com/uor16x/ofc-service/releases/download/v1.0/ofc-poker_v${latestVersion}.apk`,
 };
 
 /*

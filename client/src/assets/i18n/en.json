@@ -26,5 +26,12 @@
       "clearHand": "Clear Hand",
       "scoop": "Scoop"
     }
+  },
+  "modals": {
+    "versionMismatch": {
+      "message": "New app version available: ",
+      "download": "Download",
+      "close": "Meh"
+    }
   }
 }

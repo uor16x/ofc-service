@@ -16,6 +16,8 @@ module.exports = {
       return
     }
 
-    return app.config.latestMobileAppVersion
+    return {
+      version: app.config.latestMobileAppVersion
+    }
   }
 }
