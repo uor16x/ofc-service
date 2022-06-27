@@ -12,7 +12,12 @@ module.exports = () => {
     schema: {
       response: {
         [StatusCodes.OK]: {
-          type: 'string',
+          type: 'object',
+          properties: {
+            'version': {
+              type: 'string'
+            }
+          }
         }
       }
     },

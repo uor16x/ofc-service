@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <div class="message">
+    {{ "modals.versionMismatch.message" | translate }}<br />
+    <span>{{ latestVersion }}</span>
+  </div>
+  <div class="actions">
+    <ion-button (click)="onClose()">{{
+      "modals.versionMismatch.close" | translate
+    }}</ion-button>
+    <ion-button (click)="onDownload()">{{
+      "modals.versionMismatch.download" | translate
+    }}</ion-button>
+  </div>
+</div>

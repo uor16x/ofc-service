@@ -26,5 +26,12 @@
       "clearHand": "Очистити руку",
       "scoop": "Скуп"
     }
+  },
+  "modals": {
+    "versionMismatch": {
+      "message": "Нова версія доступна: ",
+      "download": "Скачати",
+      "close": "Впадляк"
+    }
   }
 }

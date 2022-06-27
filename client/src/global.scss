@@ -43,3 +43,11 @@
 ion-button {
   font-family: Jura-Bold;
 }
+
+ion-modal {
+  --height: 150px;
+  --width: 80%;
+  --border-radius: 10px;
+  align-items: flex-end;
+  padding-bottom: 10vw;
+}

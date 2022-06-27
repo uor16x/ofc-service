@@ -34,7 +34,8 @@ export class AppComponent implements OnInit {
     this.translate.use(storedLanguage || this.translate.defaultLang);
     this.userService.settings.language =
       storedLanguage || this.translate.defaultLang;
-    this.menuService.init();
+    await this.menuService.init();
+    await this.menuService.checkVersion();
     this.initSockets();
   }
 
@@ -42,14 +43,13 @@ export class AppComponent implements OnInit {
     this.socketService.listenMessages();
     this.socketService.newGameHosted$.subscribe((newGame) => {
       this.gameService.getAllGames();
-      this.toastService.showGameHostedToast(newGame.hostName);
+      this.toastService.showGameHosted(newGame.hostName);
     });
     this.socketService.gameDeleted$.subscribe((deletedGameId) => {
       if (deletedGameId === this.menuService.currentGameId) {
         this.menuService.removeCurrentGameId();
       }
       this.gameService.getAllGames();
-      // this.toastService.showGameHostedToast(newGame.hostName);
     });
   }
 }
