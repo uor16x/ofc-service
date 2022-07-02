@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GameService, UserService } from '../../../common/services';
-import { ModalController } from '@ionic/angular';
+import { ModalService } from '../../../common/services/modal.service';
 
 @Component({
   selector: 'app-host-modal',
@@ -17,7 +17,7 @@ export class HostModalComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly gameService: GameService,
-    private readonly modalController: ModalController,
+    private readonly modalService: ModalService,
     private readonly userService: UserService
   ) {}
 
@@ -34,7 +34,7 @@ export class HostModalComponent implements OnInit {
   }
 
   private _closeModal() {
-    this.modalController.dismiss();
+    this.modalService.close();
   }
 
   onBack() {
