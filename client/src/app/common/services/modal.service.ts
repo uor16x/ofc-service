@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ModalComponent } from '../../shared';
+import { HostModalComponent, ModalComponent } from '../../shared';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,17 @@ export class ModalService {
   async openVersionMismatch(latestVersion: string) {
     const modal = await this.modalController.create({
       component: ModalComponent,
+      cssClass: 'short-modal',
       canDismiss: false,
       componentProps: { latestVersion },
+    });
+    modal.present();
+  }
+
+  async openHostGame() {
+    const modal = await this.modalController.create({
+      component: HostModalComponent,
+      cssClass: 'high-modal',
     });
     modal.present();
   }

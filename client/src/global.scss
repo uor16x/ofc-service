@@ -45,9 +45,16 @@ ion-button {
 }
 
 ion-modal {
-  --height: 150px;
   --width: 80%;
   --border-radius: 10px;
   align-items: flex-end;
   padding-bottom: 10vw;
+}
+
+.short-modal {
+  --height: 150px;
+}
+
+.high-modal {
+  --height: 300px;
 }
